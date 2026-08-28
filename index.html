@@ -1,0 +1,2857 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LocknLock - 텀블러 전용 쇼핑몰</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- 전체 래퍼: 데스크탑에서 2단 Split, 모바일에서 단일 컬럼 -->
+  <div class="page-wrap">
+
+    <!-- 좌측 브랜드 영역 (데스크탑 전용, 모바일에서 숨김) -->
+    <aside class="brand-panel">
+      <p class="brand-copy-top">당신의 라이프스타일에 맞춘,<br>가장 특별한 텀블러를 만나보세요.</p>
+      <h1 class="brand-logo">LOCKNLOCK</h1>
+      <p class="brand-copy-bottom">자신만의 원하는 텀블러를 발견하세요.</p>
+
+      <div class="brand-visual">
+        <img src="img/desktop-hero.jpg" alt="다양한 락앤락 텀블러 연출 이미지">
+      </div>
+    </aside>
+
+    <!-- 우측 모바일 프리뷰 / 모바일 실화면 영역 -->
+    <div class="app-panel">
+
+      <!-- ===== 사이드바 드로어 메뉴 ===== -->
+      <div class="drawer-overlay" id="drawer-overlay"></div>
+      <nav class="drawer" id="drawer" aria-label="사이드 메뉴">
+        <div class="drawer-header">
+          <span class="drawer-logo" data-page="page-home" role="button" tabindex="0">LOCKNLOCK</span>
+          <button class="drawer-close-btn" id="drawer-close" aria-label="메뉴 닫기">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- 로그인 전 상태 (3개의 버튼) -->
+        <div class="drawer-greeting logged-out-only">
+          <p class="drawer-greeting-title">반갑습니다!<br>로그인해주세요</p>
+          <div class="drawer-login-buttons">
+            <button class="drawer-btn btn-login" data-page="page-login">일반 로그인</button>
+            <button class="drawer-btn btn-google-login">Google 로그인</button>
+            <button class="drawer-btn btn-signup">회원가입</button>
+          </div>
+        </div>
+        <!-- 로그인 후 상태 (프로필 + 로그아웃) -->
+        <div class="drawer-greeting logged-in-only" style="display: none;">
+          <div class="drawer-profile">
+            <img src="img/Profile Avatar.jpg" alt="프로필 사진" class="drawer-avatar">
+            <div class="drawer-profile-info">
+              <span class="drawer-username">홍길동</span>
+            </div>
+          </div>
+          <button class="drawer-logout-btn btn-logout">로그아웃</button>
+        </div>
+
+        <div class="drawer-divider"></div>
+
+        <div class="drawer-body">
+          <p class="drawer-section-label">CATEGORY</p>
+          <a href="#" class="drawer-menu-link" data-page="page-cat-tumbler">
+            <span class="drawer-menu-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 8h1a4 4 0 1 1 0 8h-1" />
+                <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z" />
+                <line x1="6" y1="2" x2="6" y2="4" />
+                <line x1="10" y1="2" x2="10" y2="4" />
+                <line x1="14" y1="2" x2="14" y2="4" />
+              </svg>
+            </span>
+            <span>텀블러</span>
+            <span class="drawer-menu-sub">(Tumblers)</span>
+          </a>
+          <a href="#" class="drawer-menu-link" data-page="page-cat-kids">
+            <span class="drawer-menu-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 9h9v8a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3V9z" />
+                <path d="M15 11h1.5a2 2 0 0 1 0 4H15" />
+                <circle cx="10.5" cy="6" r="1.6" />
+              </svg>
+            </span>
+            <span>유아용 텀블러</span>
+            <span class="drawer-menu-sub">(Kids Tumblers)</span>
+          </a>
+          <a href="#" class="drawer-menu-link" data-page="page-cat-sports">
+            <span class="drawer-menu-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 2h6v4l1.5 2.5v11a2 2 0 0 1-2 2h-5a2 2 0 0 1-2-2v-11L9 6V2z" />
+                <line x1="9" y1="2" x2="15" y2="2" />
+                <path d="M7 13h10" />
+              </svg>
+            </span>
+            <span>스포츠용</span>
+            <span class="drawer-menu-sub">(Sports)</span>
+          </a>
+          <a href="#" class="drawer-menu-link" data-page="page-cat-portable">
+            <span class="drawer-menu-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8 2h8l2 18H6L8 2z" />
+                <path d="M6 20h12" />
+                <line x1="12" y1="2" x2="12" y2="6" />
+              </svg>
+            </span>
+            <span>휴대용 물병</span>
+            <span class="drawer-menu-sub">(Portable Bottles)</span>
+          </a>
+          <a href="#" class="drawer-menu-link" data-page="page-cat-table">
+            <span class="drawer-menu-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 4h11l-2 15a2 2 0 0 1-2 1.7H9a2 2 0 0 1-2-1.7L5 4z" />
+                <path d="M16 6h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-1.4" />
+                <line x1="5" y1="4" x2="16" y2="4" />
+              </svg>
+            </span>
+            <span>식탁용 물병</span>
+            <span class="drawer-menu-sub">(Table Bottles)</span>
+          </a>
+          <a href="#" class="drawer-menu-link" data-page="page-cat-lid-straw">
+            <span class="drawer-menu-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <ellipse cx="11" cy="5" rx="7" ry="2.2" />
+                <path d="M4 5v10a7 2.2 0 0 0 14 0V5" />
+                <line x1="16" y1="3" x2="19" y2="1" />
+                <line x1="16" y1="6" x2="20" y2="8" />
+              </svg>
+            </span>
+            <span>뚜껑/빨대</span>
+            <span class="drawer-menu-sub">(Lids &amp; Straws)</span>
+          </a>
+
+          <div class="drawer-divider"></div>
+
+
+          <p class="drawer-section-label">SERVICE</p>
+          <a href="#" class="drawer-menu-link">
+            <span class="drawer-menu-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+              </svg>
+            </span>
+            <span>고객센터</span>
+            <span class="drawer-menu-sub">(Customer Service)</span>
+          </a>
+          <a href="#" class="drawer-menu-link brand-story-link" data-page="page-brand-story">
+            <span class="drawer-menu-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+              </svg>
+            </span>
+            <span>브랜드 스토리</span>
+            <span class="drawer-menu-sub">(Brand Story)</span>
+          </a>
+        </div>
+
+        <div class="drawer-footer">
+          <a href="#" class="drawer-footer-link" data-page="page-settings">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3" />
+              <path
+                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1.08-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68 1.65 1.65 0 0 0 10 3.17V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1.08H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+            </svg>
+            <span>환경 설정</span>
+          </a>
+          <a href="#" class="drawer-footer-link btn-logout logged-in-only" style="display: none;">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <polyline points="16 17 21 12 16 7" />
+              <line x1="21" y1="12" x2="9" y2="12" />
+            </svg>
+            <span>로그아웃</span>
+          </a>
+        </div>
+      </nav>
+
+      <!-- ===== 페이지: 홈 ===== -->
+      <section class="page-section page-home is-active" id="page-home">
+
+        <!-- 상단 고정 헤더 -->
+        <header class="app-header">
+          <button class="icon-btn menu-btn" aria-label="메뉴 열기">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          </button>
+          <span class="app-logo" data-page="page-home" role="button" tabindex="0">LOCKNLOCK</span>
+          <a class="tab-item" href="#" data-page="page-cart">
+            <button class="icon-btn cart-btn" aria-label="장바구니">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="9" cy="21" r="1" />
+                <circle cx="20" cy="21" r="1" />
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+              </svg>
+              <span class="cart-badge" id="cart-badge" style="display: none;">0</span>
+            </button>
+          </a>
+        </header>
+
+        <!-- 상단 검색창 -->
+        <form class="search-bar" role="search">
+          <span class="icon-search" aria-hidden="true"><svg viewBox="0 0 24 24" width="15" height="15" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg></span>
+          <input type="text" placeholder="상품 검색 (예: 메트로 머그)" aria-label="상품 검색">
+        </form>
+
+        <main class="app-main">
+
+          <!-- 브랜드 소개 카드 -->
+          <section class="card intro-card intro-card--brand">
+            <span class="card-accent-bar"></span>
+            <div class="card-body">
+              <h2 class="card-title">락앤락 (LocknLock):<br>고객의 삶을 풍요롭게</h2>
+              <img class="card-image" src="img/main-tumbler.jpg" alt="락앤락 텀블러가 놓인 감성 연출 이미지">
+              <p class="card-desc">락앤락은 50년의 정밀 기술을 바탕으로 혁신적인 삶의 질을 제공합니다.</p>
+              <p class="card-desc">우리의 목표는 단순한 용기를 넘어 완벽한 밀폐력과 지속 가능한 미래를 선도하는 것입니다.</p>
+            </div>
+          </section>
+
+          <!-- 텀블러 소개 카드 -->
+          <section class="card intro-card intro-card--product">
+            <span class="card-accent-bar"></span>
+            <div class="card-body">
+              <h2 class="card-title">락앤락 텀블러 소개</h2>
+              <img class="card-image" src="img/intro-tumbler.jpg" alt="락앤락 텀블러 제품 이미지">
+              <div class="tag-row">
+                <span class="tag">보온/보냉</span>
+                <span class="tag">초경량</span>
+                <span class="tag">미니멀 디자인</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- 상품 정렬/필터 바 -->
+          <div class="filter-bar">
+            <p class="filter-count">전체 상품 <strong>124</strong></p>
+          </div>
+          <div class="filter-chip-row">
+            <div class="sort-dropdown" data-dropdown="sort">
+              <button class="filter-chip" data-dropdown-trigger>
+                <span class="sort-trigger-label">추천순</span>
+                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="#888" stroke-width="1.5">
+                  <path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+              <div class="sort-dropdown-panel" data-dropdown-panel>
+                <button class="sort-option is-active" data-sort-value="추천순">추천순</button>
+                <button class="sort-option" data-sort-value="판매인기순">판매인기순</button>
+                <button class="sort-option" data-sort-value="낮은가격순">낮은가격순</button>
+                <button class="sort-option" data-sort-value="높은가격순">높은가격순</button>
+              </div>
+            </div>
+            <div class="price-dropdown" data-dropdown="price">
+              <button class="filter-chip" data-dropdown-trigger>
+                <span class="price-trigger-label">가격</span>
+                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="#222" stroke-width="1.5">
+                  <path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+              <div class="price-dropdown-panel" data-dropdown-panel>
+                <div class="price-preset-list">
+                  <button type="button" class="price-preset-btn is-active" data-min="0" data-max="999999999">전체</button>
+                  <button type="button" class="price-preset-btn" data-min="0" data-max="10000">1만원 이하</button>
+                  <button type="button" class="price-preset-btn" data-min="10000" data-max="20000">1만원 ~ 2만원</button>
+                  <button type="button" class="price-preset-btn" data-min="20000" data-max="30000">2만원 ~ 3만원</button>
+                  <button type="button" class="price-preset-btn" data-min="30000" data-max="999999999">3만원 이상</button>
+                </div>
+                <button class="price-apply-btn">적용</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2열 상품 카드 그리드 -->
+          <section class="product-grid" aria-label="상품 목록">
+
+            <article class="product-card">
+              <div class="product-thumb">
+                <span class="badge badge--new">신상품</span>
+                <button class="icon-btn wish-btn" aria-label="찜하기"><svg class="icon-heart" viewBox="0 0 24 24"
+                    width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+                  </svg></button>
+                <img src="img/daily-pop-slim-mini-tumbler-200.jpg" alt="데일리팝 슬림 미니 텀블러 200ml">
+                <button class="icon-btn add-cart-btn" aria-label="장바구니 담기"><svg viewBox="0 0 24 24" width="14"
+                    height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg></button>
+              </div>
+              <p class="product-brand">LOCKNLOCK</p>
+              <p class="product-name">데일리팝 슬림 미니 텀블러 200ml</p>
+              <p class="product-price"><span class="discount">30%</span> 13,900원</p>
+              <p class="product-price-original"><s>19,900원</s></p>
+              <p class="product-rating"><svg class="icon-star" viewBox="0 0 24 24" width="12" height="12" fill="#f5a623"
+                  stroke="none">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg> 4.8 <span class="review-count">(112)</span></p>
+            </article>
+
+            <article class="product-card">
+              <div class="product-thumb">
+                <button class="icon-btn wish-btn" aria-label="찜하기"><svg class="icon-heart" viewBox="0 0 24 24"
+                    width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+                  </svg></button>
+                <img src="img/metro-cafe-ceramic-tumbler-600.jpg" alt="메트로 카페 머그 세라믹 텀블러 600ml">
+                <button class="icon-btn add-cart-btn" aria-label="장바구니 담기"><svg viewBox="0 0 24 24" width="14"
+                    height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg></button>
+              </div>
+              <p class="product-brand">LOCKNLOCK</p>
+              <p class="product-name">메트로 카페 머그 세라믹 텀블러 600ml</p>
+              <p class="product-price">42,000원</p>
+              <p class="product-rating"><svg class="icon-star" viewBox="0 0 24 24" width="12" height="12" fill="#f5a623"
+                  stroke="none">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg> 4.7 <span class="review-count">(356)</span></p>
+            </article>
+
+            <article class="product-card">
+              <div class="product-thumb">
+                <button class="icon-btn wish-btn" aria-label="찜하기"><svg class="icon-heart" viewBox="0 0 24 24"
+                    width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+                  </svg></button>
+                <img src="img/daily-balance-bottle-550.jpg" alt="데일리 밸런스 보틀 550ml">
+                <button class="icon-btn add-cart-btn" aria-label="장바구니 담기"><svg viewBox="0 0 24 24" width="14"
+                    height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg></button>
+              </div>
+              <p class="product-brand">LOCKNLOCK</p>
+              <p class="product-name">데일리 밸런스 보틀 550ml</p>
+              <p class="product-price"><span class="discount">30%</span> 6,000원</p>
+              <p class="product-price-original"><s>8,600원</s></p>
+              <p class="product-rating"><svg class="icon-star" viewBox="0 0 24 24" width="12" height="12" fill="#f5a623"
+                  stroke="none">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg> 4.9 <span class="review-count">(21)</span></p>
+            </article>
+
+            <article class="product-card">
+              <div class="product-thumb">
+                <span class="badge badge--sale">할인</span>
+                <button class="icon-btn wish-btn" aria-label="찜하기"><svg class="icon-heart" viewBox="0 0 24 24"
+                    width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+                  </svg></button>
+                <img src="img/schoolfit-switchcolor-steel-bottle-500.jpg" alt="스쿨핏 스위치컬러 스테인리스 물병 500ml">
+                <button class="icon-btn add-cart-btn" aria-label="장바구니 담기"><svg viewBox="0 0 24 24" width="14"
+                    height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg></button>
+              </div>
+              <p class="product-brand">LOCKNLOCK</p>
+              <p class="product-name">스쿨핏 스위치컬러 스테인리스 <br> 물병 500ml</p>
+              <p class="product-price"><span class="discount">30%</span> 13,900원</p>
+              <p class="product-price-original"><s>19,900원</s></p>
+              <p class="product-rating"><svg class="icon-star" viewBox="0 0 24 24" width="12" height="12" fill="#f5a623"
+                  stroke="none">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg> 4.6 <span class="review-count">(8)</span></p>
+            </article>
+
+            <article class="product-card">
+              <div class="product-thumb">
+                <button class="icon-btn wish-btn" aria-label="찜하기"><svg class="icon-heart" viewBox="0 0 24 24"
+                    width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+                  </svg></button>
+                <img src="img/slimfit-onetouch-tumbler-400.jpg" alt="슬림핏 원터치 텀블러 400ml 아이보리">
+                <button class="icon-btn add-cart-btn" aria-label="장바구니 담기"><svg viewBox="0 0 24 24" width="14"
+                    height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg></button>
+              </div>
+              <p class="product-brand">LOCKNLOCK</p>
+              <p class="product-name">슬림핏 원터치 텀블러 <br> 400ml (아이보리)</p>
+              <p class="product-price">17,430원</p>
+              <p class="product-rating"><svg class="icon-star" viewBox="0 0 24 24" width="12" height="12" fill="#f5a623"
+                  stroke="none">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg> 4.5 <span class="review-count">(64)</span></p>
+            </article>
+
+            <article class="product-card">
+              <div class="product-thumb">
+                <span class="badge badge--new">신상품</span>
+                <button class="icon-btn wish-btn" aria-label="찜하기"><svg class="icon-heart" viewBox="0 0 24 24"
+                    width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+                  </svg></button>
+                <img src="img/schoolfit-cottoncandy-tumbler-370-2p.jpg" alt="스쿨핏 코튼캔디 원터치 텀블러 370ml 2개 세트">
+                <button class="icon-btn add-cart-btn" aria-label="장바구니 담기"><svg viewBox="0 0 24 24" width="14"
+                    height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg></button>
+              </div>
+              <p class="product-brand">LOCKNLOCK</p>
+              <p class="product-name">스쿨핏 코튼캔디 원터치 텀블러<br>370ml 2개 세트</p>
+              <p class="product-price"><span class="discount">5%</span> 28,410원</p>
+              <p class="product-price-original"><s>29,900원</s></p>
+              <p class="product-rating"><svg class="icon-star" viewBox="0 0 24 24" width="12" height="12" fill="#f5a623"
+                  stroke="none">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg> 4.8 <span class="review-count">(37)</span></p>
+            </article>
+
+            <article class="product-card">
+              <div class="product-thumb">
+                <span class="badge badge--new">신상품</span>
+                <button class="icon-btn wish-btn" aria-label="찜하기"><svg class="icon-heart" viewBox="0 0 24 24"
+                    width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+                  </svg></button>
+                <img src="img/metro-perfectseal-mug-tumbler.jpg" alt="메트로 퍼펙트씰 머그 텀블러">
+                <button class="icon-btn add-cart-btn" aria-label="장바구니 담기"><svg viewBox="0 0 24 24" width="14"
+                    height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg></button>
+              </div>
+              <p class="product-brand">LOCKNLOCK</p>
+              <p class="product-name">메트로 퍼펙트씰 머그 텀블러</p>
+              <p class="product-price">32,000원</p>
+              <p class="product-rating"><svg class="icon-star" viewBox="0 0 24 24" width="12" height="12" fill="#f5a623"
+                  stroke="none">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg> 4.8 <span class="review-count">(19)</span></p>
+            </article>
+
+            <article class="product-card">
+              <div class="product-thumb">
+                <button class="icon-btn wish-btn" aria-label="찜하기"><svg class="icon-heart" viewBox="0 0 24 24"
+                    width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+                  </svg></button>
+                <img src="img/slo-steel-mug.jpg" alt="슬로 스텐 머그 캠핑 아웃도어">
+                <button class="icon-btn add-cart-btn" aria-label="장바구니 담기"><svg viewBox="0 0 24 24" width="14"
+                    height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg></button>
+              </div>
+              <p class="product-brand">LOCKNLOCK</p>
+              <p class="product-name">슬로 스텐 머그 (캠핑·아웃도어)</p>
+              <p class="product-price">28,000원</p>
+              <p class="product-rating"><svg class="icon-star" viewBox="0 0 24 24" width="12" height="12" fill="#f5a623"
+                  stroke="none">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg> 4.7 <span class="review-count">(52)</span></p>
+            </article>
+
+            <article class="product-card">
+              <div class="product-thumb">
+                <span class="badge badge--sale">할인</span>
+                <button class="icon-btn wish-btn" aria-label="찜하기"><svg class="icon-heart" viewBox="0 0 24 24"
+                    width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+                  </svg></button>
+                <img src="img/mangmang-cup-bottle.jpg" alt="마망컵 보온병 원터치 텀블러">
+                <button class="icon-btn add-cart-btn" aria-label="장바구니 담기"><svg viewBox="0 0 24 24" width="14"
+                    height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg></button>
+              </div>
+              <p class="product-brand">LOCKNLOCK</p>
+              <p class="product-name">마망컵 보온병 원터치 텀블러</p>
+              <p class="product-price"><span class="discount">15%</span> 22,100원</p>
+              <p class="product-price-original"><s>26,000원</s></p>
+              <p class="product-rating"><svg class="icon-star" viewBox="0 0 24 24" width="12" height="12" fill="#f5a623"
+                  stroke="none">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg> 4.9 <span class="review-count">(103)</span></p>
+            </article>
+
+            <article class="product-card">
+              <div class="product-thumb">
+                <button class="icon-btn wish-btn" aria-label="찜하기"><svg class="icon-heart" viewBox="0 0 24 24"
+                    width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+                  </svg></button>
+                <img src="img/metro-cafe-ceramic-tumbler-400.jpg" alt="메트로 카페 세라믹 텀블러 400ml">
+                <button class="icon-btn add-cart-btn" aria-label="장바구니 담기"><svg viewBox="0 0 24 24" width="14"
+                    height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg></button>
+              </div>
+              <p class="product-brand">LOCKNLOCK</p>
+              <p class="product-name">메트로 카페 세라믹 텀블러 400ml</p>
+              <p class="product-price">24,000원</p>
+              <p class="product-rating"><svg class="icon-star" viewBox="0 0 24 24" width="12" height="12" fill="#f5a623"
+                  stroke="none">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg> 4.6 <span class="review-count">(45)</span></p>
+            </article>
+
+            <article class="product-card">
+              <div class="product-thumb">
+                <span class="badge badge--sale">할인</span>
+                <button class="icon-btn wish-btn" aria-label="찜하기"><svg class="icon-heart" viewBox="0 0 24 24"
+                    width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+                  </svg></button>
+                <img src="img/slimfit-daily-pocket-tumbler-150.jpg" alt="슬림핏 데일리포켓 텀블러 150ml">
+                <button class="icon-btn add-cart-btn" aria-label="장바구니 담기"><svg viewBox="0 0 24 24" width="14"
+                    height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg></button>
+              </div>
+              <p class="product-brand">LOCKNLOCK</p>
+              <p class="product-name">슬림핏 데일리포켓 텀블러 150ml</p>
+              <p class="product-price"><span class="discount">20%</span> 10,400원</p>
+              <p class="product-price-original"><s>13,000원</s></p>
+              <p class="product-rating"><svg class="icon-star" viewBox="0 0 24 24" width="12" height="12" fill="#f5a623"
+                  stroke="none">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg> 4.5 <span class="review-count">(28)</span></p>
+            </article>
+
+          </section>
+
+        </main>
+      </section>
+
+      <!-- ===== 페이지: 텀블러 상품 목록 ===== -->
+      <section class="page-section page-product-list" id="page-cat-tumbler">
+
+        <header class="app-header">
+          <button class="icon-btn menu-btn" aria-label="메뉴 열기">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          </button>
+          <span class="app-logo" data-page="page-home" role="button" tabindex="0">LOCKNLOCK</span>
+          <button class="icon-btn plist-search-btn" aria-label="검색">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+          </button>
+        </header>
+
+        <div class="plist-search-row" style="display:none;">
+          <div class="plist-search-input-wrap">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            <input type="text" class="plist-search-input" placeholder="상품 검색">
+          </div>
+          <button type="button" class="icon-btn plist-search-close" aria-label="검색 닫기">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="app-main product-list-main">
+
+          <!-- 정렬/필터 바 -->
+          <div class="plist-filter-row">
+            <div class="sort-dropdown" data-dropdown="sort">
+              <button class="filter-chip" data-dropdown-trigger>
+                <span class="sort-trigger-label">추천순</span>
+                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="#888" stroke-width="1.5">
+                  <path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+              <div class="sort-dropdown-panel" data-dropdown-panel>
+                <button class="sort-option is-active" data-sort-value="추천순">추천순</button>
+                <button class="sort-option" data-sort-value="판매인기순">판매인기순</button>
+                <button class="sort-option" data-sort-value="낮은가격순">낮은가격순</button>
+                <button class="sort-option" data-sort-value="높은가격순">높은가격순</button>
+              </div>
+            </div>
+            <div class="price-dropdown" data-dropdown="price">
+              <button class="filter-chip" data-dropdown-trigger>
+                <span class="price-trigger-label">가격</span>
+                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="#888" stroke-width="1.5">
+                  <path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+              <div class="price-dropdown-panel" data-dropdown-panel>
+                <div class="price-preset-list">
+                  <button type="button" class="price-preset-btn is-active" data-min="0" data-max="999999999">전체</button>
+                  <button type="button" class="price-preset-btn" data-min="0" data-max="10000">1만원 이하</button>
+                  <button type="button" class="price-preset-btn" data-min="10000" data-max="20000">1만원 ~ 2만원</button>
+                  <button type="button" class="price-preset-btn" data-min="20000" data-max="30000">2만원 ~ 3만원</button>
+                  <button type="button" class="price-preset-btn" data-min="30000" data-max="999999999">3만원 이상</button>
+                </div>
+                <button class="price-apply-btn">적용</button>
+              </div>
+            </div>
+            <button class="plist-shipping-chip">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1" y="3" width="15" height="13" />
+                <polygon points="16 8 20 8 23 11 23 16 16 16 16 8" />
+                <circle cx="5.5" cy="18.5" r="2.5" />
+                <circle cx="18.5" cy="18.5" r="2.5" />
+              </svg>
+              오늘출발
+            </button>
+          </div>
+
+          <!-- 2열 상품 카드 그리드 -->
+          <section class="product-grid" aria-label="텀블러 상품 목록">
+
+            <article class="product-card">
+              <div class="product-thumb">
+                <span class="badge badge--today">오늘출발</span>
+                <button class="icon-btn wish-btn" aria-label="찜하기"><svg class="icon-heart" viewBox="0 0 24 24"
+                    width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+                  </svg></button>
+                <button class="icon-btn add-cart-btn" aria-label="장바구니 담기"><svg viewBox="0 0 24 24" width="14"
+                    height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg></button>
+                <img src="img/daily-pop-slim-mini-tumbler-200.jpg" alt="데일리팝 슬림 미니 텀블러 200ml">
+              </div>
+              <p class="product-brand">LOCKNLOCK</p>
+              <p class="product-name">데일리팝 슬림 미니 텀블러 200ml</p>
+              <p class="product-price"><span class="discount">30%</span> 13,900원 <span
+                  class="price-strike">19,900</span></p>
+              <p class="product-rating"><svg class="icon-star" viewBox="0 0 24 24" width="12" height="12" fill="#f5a623"
+                  stroke="none">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg> 4.8 <span class="review-count">(312)</span></p>
+            </article>
+
+            <article class="product-card">
+              <div class="product-thumb">
+                <button class="icon-btn wish-btn" aria-label="찜하기"><svg class="icon-heart" viewBox="0 0 24 24"
+                    width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+                  </svg></button>
+                <button class="icon-btn add-cart-btn" aria-label="장바구니 담기"><svg viewBox="0 0 24 24" width="14"
+                    height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg></button>
+                <img src="img/metro-cafe-ceramic-tumbler-600.jpg" alt="메트로 카페 머그 세라믹 텀블러 600ml">
+              </div>
+              <p class="product-brand">LOCKNLOCK</p>
+              <p class="product-name">메트로 카페 머그 세라믹 텀블러 600ml</p>
+              <p class="product-price"><span class="discount">5%</span> 24,700원 <span class="price-strike">26,000</span>
+              </p>
+              <p class="product-rating"><svg class="icon-star" viewBox="0 0 24 24" width="12" height="12" fill="#f5a623"
+                  stroke="none">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg> 4.7 <span class="review-count">(356)</span></p>
+            </article>
+
+            <article class="product-card">
+              <div class="product-thumb">
+                <span class="badge badge--today">오늘출발</span>
+                <button class="icon-btn wish-btn" aria-label="찜하기"><svg class="icon-heart" viewBox="0 0 24 24"
+                    width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+                  </svg></button>
+                <button class="icon-btn add-cart-btn" aria-label="장바구니 담기"><svg viewBox="0 0 24 24" width="14"
+                    height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg></button>
+                <img src="img/slo-ultralight-tumbler-630.jpg" alt="슬로 울트라라이트 텀블러 630ml">
+              </div>
+              <p class="product-brand">LOCKNLOCK</p>
+              <p class="product-name">슬로 울트라라이트 텀블러 630ml</p>
+              <p class="product-price">27,800원</p>
+              <p class="product-rating"><svg class="icon-star" viewBox="0 0 24 24" width="12" height="12" fill="#f5a623"
+                  stroke="none">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg> 4.6 <span class="review-count">(128)</span></p>
+            </article>
+
+            <article class="product-card">
+              <div class="product-thumb">
+                <button class="icon-btn wish-btn" aria-label="찜하기"><svg class="icon-heart" viewBox="0 0 24 24"
+                    width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+                  </svg></button>
+                <button class="icon-btn add-cart-btn" aria-label="장바구니 담기"><svg viewBox="0 0 24 24" width="14"
+                    height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg></button>
+                <img src="img/metro-twoway-tumbler-475.jpg" alt="메트로 투웨이 텀블러 475ml">
+              </div>
+              <p class="product-brand">LOCKNLOCK</p>
+              <p class="product-name">메트로 투웨이 텀블러 475ml</p>
+              <p class="product-price"><span class="discount">5%</span> 29,740원 <span class="price-strike">31,300</span>
+              </p>
+              <p class="product-rating"><svg class="icon-star" viewBox="0 0 24 24" width="12" height="12" fill="#f5a623"
+                  stroke="none">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg> 4.9 <span class="review-count">(201)</span></p>
+            </article>
+
+          </section>
+
+        </div>
+      </section>
+
+      <!-- ===== 페이지: 유아용 텀블러 상품 목록 ===== -->
+      <section class="page-section page-product-list" id="page-cat-kids">
+
+        <header class="app-header">
+          <button class="icon-btn menu-btn" aria-label="메뉴 열기">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          </button>
+          <span class="app-logo" data-page="page-home" role="button" tabindex="0">LOCKNLOCK</span>
+          <button class="icon-btn plist-search-btn" aria-label="검색">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+          </button>
+        </header>
+
+        <div class="plist-search-row" style="display:none;">
+          <div class="plist-search-input-wrap">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            <input type="text" class="plist-search-input" placeholder="상품 검색">
+          </div>
+          <button type="button" class="icon-btn plist-search-close" aria-label="검색 닫기">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="app-main product-list-main">
+
+          <!-- 정렬/필터 바 -->
+          <div class="plist-filter-row">
+            <div class="sort-dropdown" data-dropdown="sort">
+              <button class="filter-chip" data-dropdown-trigger>
+                <span class="sort-trigger-label">추천순</span>
+                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="#888" stroke-width="1.5">
+                  <path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+              <div class="sort-dropdown-panel" data-dropdown-panel>
+                <button class="sort-option is-active" data-sort-value="추천순">추천순</button>
+                <button class="sort-option" data-sort-value="판매인기순">판매인기순</button>
+                <button class="sort-option" data-sort-value="낮은가격순">낮은가격순</button>
+                <button class="sort-option" data-sort-value="높은가격순">높은가격순</button>
+              </div>
+            </div>
+            <div class="price-dropdown" data-dropdown="price">
+              <button class="filter-chip" data-dropdown-trigger>
+                <span class="price-trigger-label">가격</span>
+                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="#888" stroke-width="1.5">
+                  <path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+              <div class="price-dropdown-panel" data-dropdown-panel>
+                <div class="price-preset-list">
+                  <button type="button" class="price-preset-btn is-active" data-min="0" data-max="999999999">전체</button>
+                  <button type="button" class="price-preset-btn" data-min="0" data-max="10000">1만원 이하</button>
+                  <button type="button" class="price-preset-btn" data-min="10000" data-max="20000">1만원 ~ 2만원</button>
+                  <button type="button" class="price-preset-btn" data-min="20000" data-max="30000">2만원 ~ 3만원</button>
+                  <button type="button" class="price-preset-btn" data-min="30000" data-max="999999999">3만원 이상</button>
+                </div>
+                <button class="price-apply-btn">적용</button>
+              </div>
+            </div>
+            <button class="plist-shipping-chip">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1" y="3" width="15" height="13" />
+                <polygon points="16 8 20 8 23 11 23 16 16 16 16 8" />
+                <circle cx="5.5" cy="18.5" r="2.5" />
+                <circle cx="18.5" cy="18.5" r="2.5" />
+              </svg>
+              오늘출발
+            </button>
+          </div>
+
+          <!-- 2열 상품 카드 그리드 -->
+          <section class="product-grid" aria-label="유아용 텀블러 상품 목록">
+
+            <article class="product-card">
+              <div class="product-thumb">
+                <span class="badge badge--today">오늘출발</span>
+                <button class="icon-btn wish-btn" aria-label="찜하기"><svg class="icon-heart" viewBox="0 0 24 24"
+                    width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+                  </svg></button>
+                <button class="icon-btn add-cart-btn" aria-label="장바구니 담기"><svg viewBox="0 0 24 24" width="14"
+                    height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg></button>
+                <img src="img/littlerub-kids-strap-tumbler-350.jpg" alt="리틀럽 키즈스트랩 텀블러 350ml">
+              </div>
+              <p class="product-brand">LOCKNLOCK</p>
+              <p class="product-name">리틀럽 키즈스트랩 텀블러 350ml</p>
+              <p class="product-price">25,400원</p>
+              <p class="product-rating"><svg class="icon-star" viewBox="0 0 24 24" width="12" height="12" fill="#f5a623"
+                  stroke="none">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg> 5.0 <span class="review-count">(86)</span></p>
+            </article>
+
+            <article class="product-card">
+              <div class="product-thumb">
+                <button class="icon-btn wish-btn" aria-label="찜하기"><svg class="icon-heart" viewBox="0 0 24 24"
+                    width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+                  </svg></button>
+                <button class="icon-btn add-cart-btn" aria-label="장바구니 담기"><svg viewBox="0 0 24 24" width="14"
+                    height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg></button>
+                <img src="img/schoolfit-kids-strap-tumbler-500.jpg" alt="스쿨핏 키즈스트랩 텀블러 500ml">
+              </div>
+              <p class="product-brand">LOCKNLOCK</p>
+              <p class="product-name">스쿨핏 키즈스트랩 텀블러 500ml</p>
+              <p class="product-price">40,700원</p>
+              <p class="product-rating"><svg class="icon-star" viewBox="0 0 24 24" width="12" height="12" fill="#f5a623"
+                  stroke="none">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg> 4.9 <span class="review-count">(47)</span></p>
+            </article>
+
+            <article class="product-card">
+              <div class="product-thumb">
+                <span class="badge badge--today">오늘출발</span>
+                <button class="icon-btn wish-btn" aria-label="찜하기"><svg class="icon-heart" viewBox="0 0 24 24"
+                    width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+                  </svg></button>
+                <button class="icon-btn add-cart-btn" aria-label="장바구니 담기"><svg viewBox="0 0 24 24" width="14"
+                    height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg></button>
+                <img src="img/schoolfit-chewing-onetouch-tumbler-360.jpg" alt="스쿨핏 츄잉 원터치 텀블러 360ml">
+              </div>
+              <p class="product-brand">LOCKNLOCK</p>
+              <p class="product-name">스쿨핏 츄잉 원터치 텀블러 360ml</p>
+              <p class="product-price"><span class="discount">45%</span> 15,700원 <span
+                  class="price-strike">28,400</span></p>
+              <p class="product-rating"><svg class="icon-star" viewBox="0 0 24 24" width="12" height="12" fill="#f5a623"
+                  stroke="none">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg> 4.7 <span class="review-count">(63)</span></p>
+            </article>
+
+            <article class="product-card">
+              <div class="product-thumb">
+                <button class="icon-btn wish-btn" aria-label="찜하기"><svg class="icon-heart" viewBox="0 0 24 24"
+                    width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+                  </svg></button>
+                <button class="icon-btn add-cart-btn" aria-label="장바구니 담기"><svg viewBox="0 0 24 24" width="14"
+                    height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg></button>
+                <img src="img/pinkfong-babyshark-tumbler.jpg" alt="핑크퐁 아기상어 텀블러">
+              </div>
+              <p class="product-brand">LOCKNLOCK</p>
+              <p class="product-name">핑크퐁 아기상어 텀블러</p>
+              <p class="product-price">24,900원</p>
+              <p class="product-rating"><svg class="icon-star" viewBox="0 0 24 24" width="12" height="12" fill="#f5a623"
+                  stroke="none">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg> 4.8 <span class="review-count">(95)</span></p>
+            </article>
+
+          </section>
+
+        </div>
+      </section>
+
+      <!-- ===== 페이지: 스포츠용 상품 목록 ===== -->
+      <section class="page-section page-product-list" id="page-cat-sports">
+
+        <header class="app-header">
+          <button class="icon-btn menu-btn" aria-label="메뉴 열기">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          </button>
+          <span class="app-logo" data-page="page-home" role="button" tabindex="0">LOCKNLOCK</span>
+          <button class="icon-btn plist-search-btn" aria-label="검색">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+          </button>
+        </header>
+
+        <div class="plist-search-row" style="display:none;">
+          <div class="plist-search-input-wrap">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            <input type="text" class="plist-search-input" placeholder="상품 검색">
+          </div>
+          <button type="button" class="icon-btn plist-search-close" aria-label="검색 닫기">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="app-main product-list-main">
+
+          <!-- 정렬/필터 바 -->
+          <div class="plist-filter-row">
+            <div class="sort-dropdown" data-dropdown="sort">
+              <button class="filter-chip" data-dropdown-trigger>
+                <span class="sort-trigger-label">추천순</span>
+                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="#888" stroke-width="1.5">
+                  <path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+              <div class="sort-dropdown-panel" data-dropdown-panel>
+                <button class="sort-option is-active" data-sort-value="추천순">추천순</button>
+                <button class="sort-option" data-sort-value="판매인기순">판매인기순</button>
+                <button class="sort-option" data-sort-value="낮은가격순">낮은가격순</button>
+                <button class="sort-option" data-sort-value="높은가격순">높은가격순</button>
+              </div>
+            </div>
+            <div class="price-dropdown" data-dropdown="price">
+              <button class="filter-chip" data-dropdown-trigger>
+                <span class="price-trigger-label">가격</span>
+                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="#888" stroke-width="1.5">
+                  <path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+              <div class="price-dropdown-panel" data-dropdown-panel>
+                <div class="price-preset-list">
+                  <button type="button" class="price-preset-btn is-active" data-min="0" data-max="999999999">전체</button>
+                  <button type="button" class="price-preset-btn" data-min="0" data-max="10000">1만원 이하</button>
+                  <button type="button" class="price-preset-btn" data-min="10000" data-max="20000">1만원 ~ 2만원</button>
+                  <button type="button" class="price-preset-btn" data-min="20000" data-max="30000">2만원 ~ 3만원</button>
+                  <button type="button" class="price-preset-btn" data-min="30000" data-max="999999999">3만원 이상</button>
+                </div>
+                <button class="price-apply-btn">적용</button>
+              </div>
+            </div>
+            <button class="plist-shipping-chip">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1" y="3" width="15" height="13" />
+                <polygon points="16 8 20 8 23 11 23 16 16 16 16 8" />
+                <circle cx="5.5" cy="18.5" r="2.5" />
+                <circle cx="18.5" cy="18.5" r="2.5" />
+              </svg>
+              오늘출발
+            </button>
+          </div>
+
+          <!-- 2열 상품 카드 그리드 -->
+          <section class="product-grid" aria-label="스포츠용 상품 목록">
+
+            <article class="product-card">
+              <div class="product-thumb">
+                <span class="badge badge--today">오늘출발</span>
+                <button class="icon-btn wish-btn" aria-label="찜하기"><svg class="icon-heart" viewBox="0 0 24 24"
+                    width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+                  </svg></button>
+                <button class="icon-btn add-cart-btn" aria-label="장바구니 담기"><svg viewBox="0 0 24 24" width="14"
+                    height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg></button>
+                <img src="img/active-sports-bottle-550.jpg" alt="락앤락 액티브 스포츠 물병 550ml">
+              </div>
+              <p class="product-brand">LOCKNLOCK</p>
+              <p class="product-name">액티브 스포츠 물병 550ml</p>
+              <p class="product-price"><span class="discount">29%</span> 26,900원 <span
+                  class="price-strike">37,900</span></p>
+              <p class="product-rating"><svg class="icon-star" viewBox="0 0 24 24" width="12" height="12" fill="#f5a623"
+                  stroke="none">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg> 4.9 <span class="review-count">(1,245)</span></p>
+            </article>
+
+            <article class="product-card">
+              <div class="product-thumb">
+                <button class="icon-btn wish-btn" aria-label="찜하기"><svg class="icon-heart" viewBox="0 0 24 24"
+                    width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+                  </svg></button>
+                <button class="icon-btn add-cart-btn" aria-label="장바구니 담기"><svg viewBox="0 0 24 24" width="14"
+                    height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg></button>
+                <img src="img/slo-2in1-with-tumbler-600.jpg" alt="슬로 2IN1 위드 텀블러 600ml">
+              </div>
+              <p class="product-brand">LOCKNLOCK</p>
+              <p class="product-name">슬로 2IN1 위드 텀블러 600ml</p>
+              <p class="product-price">32,500원</p>
+              <p class="product-rating"><svg class="icon-star" viewBox="0 0 24 24" width="12" height="12" fill="#f5a623"
+                  stroke="none">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg> 4.6 <span class="review-count">(74)</span></p>
+            </article>
+
+            <article class="product-card">
+              <div class="product-thumb">
+                <span class="badge badge--today">오늘출발</span>
+                <button class="icon-btn wish-btn" aria-label="찜하기"><svg class="icon-heart" viewBox="0 0 24 24"
+                    width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+                  </svg></button>
+                <button class="icon-btn add-cart-btn" aria-label="장바구니 담기"><svg viewBox="0 0 24 24" width="14"
+                    height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg></button>
+                <img src="img/metro-king-tumbler-1200.jpg" alt="메트로킹 텀블러 1.2L">
+              </div>
+              <p class="product-brand">LOCKNLOCK</p>
+              <p class="product-name">메트로킹 텀블러 1.2L</p>
+              <p class="product-price">38,000원</p>
+              <p class="product-rating"><svg class="icon-star" viewBox="0 0 24 24" width="12" height="12" fill="#f5a623"
+                  stroke="none">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg> 4.8 <span class="review-count">(112)</span></p>
+            </article>
+
+            <article class="product-card">
+              <div class="product-thumb">
+                <button class="icon-btn wish-btn" aria-label="찜하기"><svg class="icon-heart" viewBox="0 0 24 24"
+                    width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+                  </svg></button>
+                <button class="icon-btn add-cart-btn" aria-label="장바구니 담기"><svg viewBox="0 0 24 24" width="14"
+                    height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg></button>
+                <img src="img/slo-dual-opening-tumbler-700.jpg" alt="슬로 듀얼 오프닝 텀블러 700ml">
+              </div>
+              <p class="product-brand">LOCKNLOCK</p>
+              <p class="product-name">슬로 듀얼 오프닝 텀블러 700ml</p>
+              <p class="product-price">29,900원</p>
+              <p class="product-rating"><svg class="icon-star" viewBox="0 0 24 24" width="12" height="12" fill="#f5a623"
+                  stroke="none">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg> 4.5 <span class="review-count">(39)</span></p>
+            </article>
+
+          </section>
+
+        </div>
+      </section>
+
+      <!-- ===== 페이지: 휴대용 물병 상품 목록 ===== -->
+      <section class="page-section page-product-list" id="page-cat-portable">
+
+        <header class="app-header">
+          <button class="icon-btn menu-btn" aria-label="메뉴 열기">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          </button>
+          <span class="app-logo" data-page="page-home" role="button" tabindex="0">LOCKNLOCK</span>
+          <button class="icon-btn plist-search-btn" aria-label="검색">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+          </button>
+        </header>
+
+        <div class="plist-search-row" style="display:none;">
+          <div class="plist-search-input-wrap">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            <input type="text" class="plist-search-input" placeholder="상품 검색">
+          </div>
+          <button type="button" class="icon-btn plist-search-close" aria-label="검색 닫기">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="app-main product-list-main">
+
+          <!-- 정렬/필터 바 -->
+          <div class="plist-filter-row">
+            <div class="sort-dropdown" data-dropdown="sort">
+              <button class="filter-chip" data-dropdown-trigger>
+                <span class="sort-trigger-label">추천순</span>
+                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="#888" stroke-width="1.5">
+                  <path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+              <div class="sort-dropdown-panel" data-dropdown-panel>
+                <button class="sort-option is-active" data-sort-value="추천순">추천순</button>
+                <button class="sort-option" data-sort-value="판매인기순">판매인기순</button>
+                <button class="sort-option" data-sort-value="낮은가격순">낮은가격순</button>
+                <button class="sort-option" data-sort-value="높은가격순">높은가격순</button>
+              </div>
+            </div>
+            <div class="price-dropdown" data-dropdown="price">
+              <button class="filter-chip" data-dropdown-trigger>
+                <span class="price-trigger-label">가격</span>
+                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="#888" stroke-width="1.5">
+                  <path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+              <div class="price-dropdown-panel" data-dropdown-panel>
+                <div class="price-preset-list">
+                  <button type="button" class="price-preset-btn is-active" data-min="0" data-max="999999999">전체</button>
+                  <button type="button" class="price-preset-btn" data-min="0" data-max="10000">1만원 이하</button>
+                  <button type="button" class="price-preset-btn" data-min="10000" data-max="20000">1만원 ~ 2만원</button>
+                  <button type="button" class="price-preset-btn" data-min="20000" data-max="30000">2만원 ~ 3만원</button>
+                  <button type="button" class="price-preset-btn" data-min="30000" data-max="999999999">3만원 이상</button>
+                </div>
+                <button class="price-apply-btn">적용</button>
+              </div>
+            </div>
+            <button class="plist-shipping-chip">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1" y="3" width="15" height="13" />
+                <polygon points="16 8 20 8 23 11 23 16 16 16 16 8" />
+                <circle cx="5.5" cy="18.5" r="2.5" />
+                <circle cx="18.5" cy="18.5" r="2.5" />
+              </svg>
+              오늘출발
+            </button>
+          </div>
+
+          <!-- 2열 상품 카드 그리드 -->
+          <section class="product-grid" aria-label="휴대용 물병 상품 목록">
+
+            <article class="product-card">
+              <div class="product-thumb">
+                <button class="icon-btn wish-btn" aria-label="찜하기"><svg class="icon-heart" viewBox="0 0 24 24"
+                    width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+                  </svg></button>
+                <button class="icon-btn add-cart-btn" aria-label="장바구니 담기"><svg viewBox="0 0 24 24" width="14"
+                    height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg></button>
+                <img src="img/slimfit-onetouch-tumbler-400.jpg" alt="슬림핏 원터치 텀블러 400ml">
+              </div>
+              <p class="product-brand">LOCKNLOCK</p>
+              <p class="product-name">슬림핏 원터치 텀블러 400ml</p>
+              <p class="product-price"><span class="discount">5%</span> 17,100원 <span class="price-strike">18,000</span>
+              </p>
+              <p class="product-rating"><svg class="icon-star" viewBox="0 0 24 24" width="12" height="12" fill="#f5a623"
+                  stroke="none">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg> 4.7 <span class="review-count">(88)</span></p>
+            </article>
+
+            <article class="product-card">
+              <div class="product-thumb">
+                <span class="badge badge--today">오늘출발</span>
+                <button class="icon-btn wish-btn" aria-label="찜하기"><svg class="icon-heart" viewBox="0 0 24 24"
+                    width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+                  </svg></button>
+                <button class="icon-btn add-cart-btn" aria-label="장바구니 담기"><svg viewBox="0 0 24 24" width="14"
+                    height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg></button>
+                <img src="img/slimfit-daily-pocket-tumbler-150.jpg" alt="데일리 포켓 텀블러 150ml">
+              </div>
+              <p class="product-brand">LOCKNLOCK</p>
+              <p class="product-name">데일리 포켓 텀블러 150ml</p>
+              <p class="product-price"><span class="discount">5%</span> 12,920원 <span class="price-strike">13,600</span>
+              </p>
+              <p class="product-rating"><svg class="icon-star" viewBox="0 0 24 24" width="12" height="12" fill="#f5a623"
+                  stroke="none">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg> 4.6 <span class="review-count">(54)</span></p>
+            </article>
+
+            <article class="product-card">
+              <div class="product-thumb">
+                <button class="icon-btn wish-btn" aria-label="찜하기"><svg class="icon-heart" viewBox="0 0 24 24"
+                    width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+                  </svg></button>
+                <button class="icon-btn add-cart-btn" aria-label="장바구니 담기"><svg viewBox="0 0 24 24" width="14"
+                    height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg></button>
+                <img src="img/oslo-mellow-portable-tumbler-260.jpg" alt="오슬로 멜로우 보온보냉 휴대용 텀블러 260ml">
+              </div>
+              <p class="product-brand">LOCKNLOCK</p>
+              <p class="product-name">오슬로 멜로우 보온보냉 휴대용 텀블러 260ml</p>
+              <p class="product-price">9,200원</p>
+              <p class="product-rating"><svg class="icon-star" viewBox="0 0 24 24" width="12" height="12" fill="#f5a623"
+                  stroke="none">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg> 4.8 <span class="review-count">(164)</span></p>
+            </article>
+
+            <article class="product-card">
+              <div class="product-thumb">
+                <span class="badge badge--today">오늘출발</span>
+                <button class="icon-btn wish-btn" aria-label="찜하기"><svg class="icon-heart" viewBox="0 0 24 24"
+                    width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+                  </svg></button>
+                <button class="icon-btn add-cart-btn" aria-label="장바구니 담기"><svg viewBox="0 0 24 24" width="14"
+                    height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg></button>
+                <img src="img/onetouch-bottle-500.jpg" alt="보온병 원터치 텀블러 물통 보틀 500ml">
+              </div>
+              <p class="product-brand">LOCKNLOCK</p>
+              <p class="product-name">보온병 원터치 텀블러 물통 보틀<br>500ml</p>
+              <p class="product-price">19,320원</p>
+              <p class="product-rating"><svg class="icon-star" viewBox="0 0 24 24" width="12" height="12" fill="#f5a623"
+                  stroke="none">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg> 4.5 <span class="review-count">(211)</span></p>
+            </article>
+
+          </section>
+
+        </div>
+      </section>
+
+      <!-- ===== 페이지: 식탁용 물병 상품 목록 ===== -->
+      <section class="page-section page-product-list" id="page-cat-table">
+
+        <header class="app-header">
+          <button class="icon-btn menu-btn" aria-label="메뉴 열기">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          </button>
+          <span class="app-logo" data-page="page-home" role="button" tabindex="0">LOCKNLOCK</span>
+          <button class="icon-btn plist-search-btn" aria-label="검색">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+          </button>
+        </header>
+
+        <div class="plist-search-row" style="display:none;">
+          <div class="plist-search-input-wrap">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            <input type="text" class="plist-search-input" placeholder="상품 검색">
+          </div>
+          <button type="button" class="icon-btn plist-search-close" aria-label="검색 닫기">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="app-main product-list-main">
+
+          <!-- 정렬/필터 바 -->
+          <div class="plist-filter-row">
+            <div class="sort-dropdown" data-dropdown="sort">
+              <button class="filter-chip" data-dropdown-trigger>
+                <span class="sort-trigger-label">추천순</span>
+                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="#888" stroke-width="1.5">
+                  <path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+              <div class="sort-dropdown-panel" data-dropdown-panel>
+                <button class="sort-option is-active" data-sort-value="추천순">추천순</button>
+                <button class="sort-option" data-sort-value="판매인기순">판매인기순</button>
+                <button class="sort-option" data-sort-value="낮은가격순">낮은가격순</button>
+                <button class="sort-option" data-sort-value="높은가격순">높은가격순</button>
+              </div>
+            </div>
+            <div class="price-dropdown" data-dropdown="price">
+              <button class="filter-chip" data-dropdown-trigger>
+                <span class="price-trigger-label">가격</span>
+                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="#888" stroke-width="1.5">
+                  <path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+              <div class="price-dropdown-panel" data-dropdown-panel>
+                <div class="price-preset-list">
+                  <button type="button" class="price-preset-btn is-active" data-min="0" data-max="999999999">전체</button>
+                  <button type="button" class="price-preset-btn" data-min="0" data-max="10000">1만원 이하</button>
+                  <button type="button" class="price-preset-btn" data-min="10000" data-max="20000">1만원 ~ 2만원</button>
+                  <button type="button" class="price-preset-btn" data-min="20000" data-max="30000">2만원 ~ 3만원</button>
+                  <button type="button" class="price-preset-btn" data-min="30000" data-max="999999999">3만원 이상</button>
+                </div>
+                <button class="price-apply-btn">적용</button>
+              </div>
+            </div>
+            <button class="plist-shipping-chip">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1" y="3" width="15" height="13" />
+                <polygon points="16 8 20 8 23 11 23 16 16 16 16 8" />
+                <circle cx="5.5" cy="18.5" r="2.5" />
+                <circle cx="18.5" cy="18.5" r="2.5" />
+              </svg>
+              오늘출발
+            </button>
+          </div>
+
+          <!-- 2열 상품 카드 그리드 -->
+          <section class="product-grid" aria-label="식탁용 물병 상품 목록">
+
+            <article class="product-card">
+              <div class="product-thumb">
+                <span class="badge badge--today">오늘출발</span>
+                <button class="icon-btn wish-btn" aria-label="찜하기"><svg class="icon-heart" viewBox="0 0 24 24"
+                    width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+                  </svg></button>
+                <button class="icon-btn add-cart-btn" aria-label="장바구니 담기"><svg viewBox="0 0 24 24" width="14"
+                    height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg></button>
+                <img src="img/bisfree-modular-bottle-1500.jpg" alt="락앤락 비스프리 모듈러 식탁용 물병 1.5L">
+              </div>
+              <p class="product-brand">LOCKNLOCK</p>
+              <p class="product-name">비스프리 모듈러 식탁용 물병 1.5L</p>
+              <p class="product-price">30,900원</p>
+              <p class="product-rating"><svg class="icon-star" viewBox="0 0 24 24" width="12" height="12" fill="#f5a623"
+                  stroke="none">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg> 4.7 <span class="review-count">(890)</span></p>
+            </article>
+
+            <article class="product-card">
+              <div class="product-thumb">
+                <button class="icon-btn wish-btn" aria-label="찜하기"><svg class="icon-heart" viewBox="0 0 24 24"
+                    width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+                  </svg></button>
+                <button class="icon-btn add-cart-btn" aria-label="장바구니 담기"><svg viewBox="0 0 24 24" width="14"
+                    height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg></button>
+                <img src="img/bisfree-modular-bottle-2100.jpg" alt="락앤락 비스프리 모듈러 식탁용 물병 2.1L">
+              </div>
+              <p class="product-brand">LOCKNLOCK</p>
+              <p class="product-name">비스프리 모듈러 식탁용 물병 2.1L</p>
+              <p class="product-price">30,600원</p>
+              <p class="product-rating"><svg class="icon-star" viewBox="0 0 24 24" width="12" height="12" fill="#f5a623"
+                  stroke="none">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg> 4.9 <span class="review-count">(24)</span></p>
+            </article>
+
+            <article class="product-card">
+              <div class="product-thumb">
+                <button class="icon-btn wish-btn" aria-label="찜하기"><svg class="icon-heart" viewBox="0 0 24 24"
+                    width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+                  </svg></button>
+                <button class="icon-btn add-cart-btn" aria-label="장바구니 담기"><svg viewBox="0 0 24 24" width="14"
+                    height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg></button>
+                <img src="img/mamang-cup-bottle-505.jpg" alt="락앤락 마망컵 보온병 505ml">
+              </div>
+              <p class="product-brand">LOCKNLOCK</p>
+              <p class="product-name">마망컵 보온병 505ml</p>
+              <p class="product-price">30,200원</p>
+              <p class="product-rating"><svg class="icon-star" viewBox="0 0 24 24" width="12" height="12" fill="#f5a623"
+                  stroke="none">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg> 4.6 <span class="review-count">(33)</span></p>
+            </article>
+
+            <article class="product-card">
+              <div class="product-thumb">
+                <span class="badge badge--today">오늘출발</span>
+                <button class="icon-btn wish-btn" aria-label="찜하기"><svg class="icon-heart" viewBox="0 0 24 24"
+                    width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+                  </svg></button>
+                <button class="icon-btn add-cart-btn" aria-label="장바구니 담기"><svg viewBox="0 0 24 24" width="14"
+                    height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg></button>
+                <img src="img/rock-button-tumbler-400.jpg" alt="락 버튼텀블러 400ml 아이보리">
+              </div>
+              <p class="product-brand">LOCKNLOCK</p>
+              <p class="product-name">락 버튼텀블러 400ml (아이보리)</p>
+              <p class="product-price">12,900원</p>
+              <p class="product-rating"><svg class="icon-star" viewBox="0 0 24 24" width="12" height="12" fill="#f5a623"
+                  stroke="none">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg> 4.4 <span class="review-count">(19)</span></p>
+            </article>
+
+          </section>
+
+        </div>
+      </section>
+
+      <!-- ===== 페이지: 뚜껑/빨대 상품 목록 ===== -->
+      <section class="page-section page-product-list" id="page-cat-lid-straw">
+
+        <header class="app-header">
+          <button class="icon-btn menu-btn" aria-label="메뉴 열기">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          </button>
+          <span class="app-logo" data-page="page-home" role="button" tabindex="0">LOCKNLOCK</span>
+          <button class="icon-btn plist-search-btn" aria-label="검색">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+          </button>
+        </header>
+
+        <div class="plist-search-row" style="display:none;">
+          <div class="plist-search-input-wrap">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            <input type="text" class="plist-search-input" placeholder="상품 검색">
+          </div>
+          <button type="button" class="icon-btn plist-search-close" aria-label="검색 닫기">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="app-main product-list-main">
+
+          <!-- 정렬/필터 바 -->
+          <div class="plist-filter-row">
+            <div class="sort-dropdown" data-dropdown="sort">
+              <button class="filter-chip" data-dropdown-trigger>
+                <span class="sort-trigger-label">추천순</span>
+                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="#888" stroke-width="1.5">
+                  <path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+              <div class="sort-dropdown-panel" data-dropdown-panel>
+                <button class="sort-option is-active" data-sort-value="추천순">추천순</button>
+                <button class="sort-option" data-sort-value="판매인기순">판매인기순</button>
+                <button class="sort-option" data-sort-value="낮은가격순">낮은가격순</button>
+                <button class="sort-option" data-sort-value="높은가격순">높은가격순</button>
+              </div>
+            </div>
+            <div class="price-dropdown" data-dropdown="price">
+              <button class="filter-chip" data-dropdown-trigger>
+                <span class="price-trigger-label">가격</span>
+                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="#888" stroke-width="1.5">
+                  <path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+              <div class="price-dropdown-panel" data-dropdown-panel>
+                <div class="price-preset-list">
+                  <button type="button" class="price-preset-btn is-active" data-min="0" data-max="999999999">전체</button>
+                  <button type="button" class="price-preset-btn" data-min="0" data-max="10000">1만원 이하</button>
+                  <button type="button" class="price-preset-btn" data-min="10000" data-max="20000">1만원 ~ 2만원</button>
+                  <button type="button" class="price-preset-btn" data-min="20000" data-max="30000">2만원 ~ 3만원</button>
+                  <button type="button" class="price-preset-btn" data-min="30000" data-max="999999999">3만원 이상</button>
+                </div>
+                <button class="price-apply-btn">적용</button>
+              </div>
+            </div>
+            <button class="plist-shipping-chip">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1" y="3" width="15" height="13" />
+                <polygon points="16 8 20 8 23 11 23 16 16 16 16 8" />
+                <circle cx="5.5" cy="18.5" r="2.5" />
+                <circle cx="18.5" cy="18.5" r="2.5" />
+              </svg>
+              오늘출발
+            </button>
+          </div>
+
+          <!-- 2열 상품 카드 그리드 -->
+          <section class="product-grid" aria-label="뚜껑/빨대 상품 목록">
+
+            <article class="product-card">
+              <div class="product-thumb">
+                <button class="icon-btn wish-btn" aria-label="찜하기"><svg class="icon-heart" viewBox="0 0 24 24"
+                    width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+                  </svg></button>
+                <button class="icon-btn add-cart-btn" aria-label="장바구니 담기"><svg viewBox="0 0 24 24" width="14"
+                    height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg></button>
+                <img src="img/littlerub-onetouch-straw-cup.jpg" alt="리틀럽 원터치 빨대컵">
+              </div>
+              <p class="product-brand">LOCKNLOCK</p>
+              <p class="product-name">리틀럽 원터치 빨대컵</p>
+              <p class="product-price">8,900원</p>
+              <p class="product-rating"><svg class="icon-star" viewBox="0 0 24 24" width="12" height="12" fill="#f5a623"
+                  stroke="none">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg> 4.6 <span class="review-count">(52)</span></p>
+            </article>
+
+            <article class="product-card">
+              <div class="product-thumb">
+                <span class="badge badge--today">오늘출발</span>
+                <button class="icon-btn wish-btn" aria-label="찜하기"><svg class="icon-heart" viewBox="0 0 24 24"
+                    width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+                  </svg></button>
+                <button class="icon-btn add-cart-btn" aria-label="장바구니 담기"><svg viewBox="0 0 24 24" width="14"
+                    height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg></button>
+                <img src="img/littlerub-silicone-straw-cup.jpg" alt="리틀럽 실리콘 빨대컵">
+              </div>
+              <p class="product-brand">LOCKNLOCK</p>
+              <p class="product-name">리틀럽 실리콘 빨대컵</p>
+              <p class="product-price">7,900원</p>
+              <p class="product-rating"><svg class="icon-star" viewBox="0 0 24 24" width="12" height="12" fill="#f5a623"
+                  stroke="none">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg> 4.7 <span class="review-count">(38)</span></p>
+            </article>
+
+            <article class="product-card">
+              <div class="product-thumb">
+                <button class="icon-btn wish-btn" aria-label="찜하기"><svg class="icon-heart" viewBox="0 0 24 24"
+                    width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+                  </svg></button>
+                <button class="icon-btn add-cart-btn" aria-label="장바구니 담기"><svg viewBox="0 0 24 24" width="14"
+                    height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg></button>
+                <img src="img/tumbler-replacement-silicone-straw-set.jpg" alt="텀블러 교체용 실리콘 빨대 세트">
+              </div>
+              <p class="product-brand">LOCKNLOCK</p>
+              <p class="product-name">텀블러 교체용 실리콘 빨대 세트</p>
+              <p class="product-price">5,000원</p>
+              <p class="product-rating"><svg class="icon-star" viewBox="0 0 24 24" width="12" height="12" fill="#f5a623"
+                  stroke="none">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg> 4.5 <span class="review-count">(26)</span></p>
+            </article>
+
+            <article class="product-card">
+              <div class="product-thumb">
+                <button class="icon-btn wish-btn" aria-label="찜하기"><svg class="icon-heart" viewBox="0 0 24 24"
+                    width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+                  </svg></button>
+                <button class="icon-btn add-cart-btn" aria-label="장바구니 담기"><svg viewBox="0 0 24 24" width="14"
+                    height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                  </svg></button>
+                <img src="img/metro-tumbler-replacement-lid.jpg" alt="메트로 텀블러 전용 교체 뚜껑">
+              </div>
+              <p class="product-brand">LOCKNLOCK</p>
+              <p class="product-name">메트로 텀블러 전용 교체 뚜껑</p>
+              <p class="product-price">9,000원</p>
+              <p class="product-rating"><svg class="icon-star" viewBox="0 0 24 24" width="12" height="12" fill="#f5a623"
+                  stroke="none">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg> 4.3 <span class="review-count">(14)</span></p>
+            </article>
+
+          </section>
+
+        </div>
+      </section>
+
+      <!-- ===== 페이지: 상품 상세 ===== -->
+      <section class="page-section page-product-detail no-tabbar" id="page-product-detail">
+
+        <header class="app-header">
+          <button class="icon-btn back-btn" aria-label="뒤로가기">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
+          <span class="app-logo" data-page="page-home" role="button" tabindex="0">LOCKNLOCK</span>
+          <button class="icon-btn" aria-label="검색">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+          </button>
+        </header>
+
+        <div class="app-main pd-main">
+
+          <!-- 상품 기본 정보 -->
+          <div class="pd-info">
+            <p class="pd-brand">락앤락 (LOCKNLOCK)</p>
+            <h1 class="pd-name">메트로 머그 475ml (네이비)</h1>
+            <p class="pd-rating"><svg class="icon-star" viewBox="0 0 24 24" width="12" height="12" fill="#f5a623"
+                stroke="none">
+                <polygon
+                  points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+              </svg> 4.8 <span class="review-count">(2,099)</span></p>
+
+            <div class="pd-divider"></div>
+
+            <div class="pd-price-block">
+              <p class="pd-price-row">
+                <span class="pd-discount">20%</span>
+                <span class="pd-price">37,600<span class="pd-won">원</span></span>
+              </p>
+              <p class="pd-price-original">34,500<span class="pd-won">원</span></p>
+            </div>
+
+            <div class="pd-option-block">
+              <p class="pd-option-label">수량</p>
+              <div class="cart-qty-control pd-qty-control">
+                <button class="qty-btn" aria-label="수량 감소">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round">
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                  </svg>
+                </button>
+                <span class="qty-value">1</span>
+                <button class="qty-btn" aria-label="수량 증가">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round">
+                    <line x1="12" y1="5" x2="12" y2="19" />
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- 하단 고정 액션 바 -->
+        <div class="pd-action-bar">
+          <button class="icon-btn wish-btn pd-wish-btn" aria-label="찜하기">
+            <svg class="icon-heart" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+            </svg>
+          </button>
+          <a class="icon-btn pd-cart-btn" href="#" aria-label="장바구니">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="9" cy="21" r="1" />
+              <circle cx="20" cy="21" r="1" />
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+            </svg>
+          </a>
+          <button class="pd-buy-btn">구매하기</button>
+        </div>
+
+      </section>
+
+      <!-- ===== 페이지: 장바구니 ===== -->
+      <section class="page-section page-cart" id="page-cart">
+
+        <header class="app-header">
+          <button class="icon-btn back-btn" aria-label="뒤로가기">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
+          <span class="app-logo">장바구니</span>
+          <span style="width:28px"></span>
+        </header>
+
+        <div class="app-main cart-main">
+
+          <!-- 장바구니가 비어있을 때 -->
+          <div class="cart-empty-state" id="cart-empty-state">
+            <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="9" cy="21" r="1" />
+              <circle cx="20" cy="21" r="1" />
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+            </svg>
+            <p class="cart-empty-title">장바구니가 비어있어요</p>
+            <p class="cart-empty-desc">마음에 드는 상품을 담아보세요.</p>
+          </div>
+
+          <!-- 전체 선택 -->
+          <div class="cart-select-all" id="cart-select-all-row" style="display:none;">
+            <label class="cart-checkbox-label">
+              <input type="checkbox" class="cart-checkbox" id="cart-select-all-checkbox" checked>
+              <span class="cart-checkbox-custom"></span>
+              <span id="cart-select-all-label">전체 선택 (0/0)</span>
+            </label>
+            <button type="button" class="cart-delete-selected-btn" id="cart-delete-selected-btn">선택 삭제</button>
+          </div>
+
+          <!-- 장바구니 아이템 목록 (JS로 렌더링) -->
+          <div id="cart-item-list"></div>
+
+          <!-- 결제 예상 금액 -->
+          <div class="cart-summary-card" id="cart-summary-card" style="display:none;">
+            <h3 class="cart-summary-title">결제 예상 금액</h3>
+            <div class="cart-summary-row">
+              <span id="cart-summary-amount-label">상품 금액 (0개)</span>
+              <span class="cart-summary-value" id="cart-summary-amount">0원</span>
+            </div>
+            <div class="cart-summary-row">
+              <span>배송비</span>
+              <span class="cart-summary-value" id="cart-summary-shipping">+ 3,000원</span>
+            </div>
+            <div class="cart-summary-row cart-summary-row--discount">
+              <span>총 할인금액</span>
+              <span class="cart-summary-value">- 0원</span>
+            </div>
+            <div class="cart-summary-divider"></div>
+            <div class="cart-summary-row cart-summary-row--total">
+              <span>총 결제 금액</span>
+              <span class="cart-summary-value cart-summary-total" id="cart-summary-total-value">0원</span>
+            </div>
+          </div>
+
+          <p class="cart-free-shipping" id="cart-free-shipping-note" style="display:none;">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="12" />
+              <line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>
+            3 만원 이상 구매 시 무료배송입니다.
+          </p>
+
+          <button class="cart-order-btn" id="cart-order-btn" data-page="page-checkout"
+            style="display:none;">주문하기</button>
+
+        </div>
+      </section>
+
+      <!-- ===== 페이지: 주문/결제 ===== -->
+      <section class="page-section page-checkout no-tabbar" id="page-checkout">
+
+        <header class="app-header">
+          <button class="icon-btn back-btn" aria-label="뒤로가기">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
+          <span class="app-logo">주문 / 결제</span>
+          <span style="width:28px"></span>
+        </header>
+
+        <div class="app-main checkout-main">
+
+          <!-- 주문 상품 -->
+          <section class="checkout-section">
+            <h2 class="checkout-section-title">주문 상품</h2>
+            <div class="checkout-order-summary">
+              <img src="img/product-1.jpg" alt="메트로 머그 475ml 네이비" class="checkout-order-thumb">
+              <div class="checkout-order-info">
+                <p class="checkout-order-name">메트로 머그 475ml (네이비) 외 1건 <span class="chip-arrow"
+                    id="checkout-order-toggle"><svg width="10" height="6" viewBox="0 0 10 6" fill="none"
+                      stroke="currentColor" stroke-width="1.5">
+                      <path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg></span></p>
+                <p class="checkout-order-price">46,400원</p>
+              </div>
+            </div>
+            <div class="checkout-order-list" id="checkout-order-list" style="display:none;"></div>
+          </section>
+
+          <div class="checkout-divider"></div>
+
+          <!-- 배송지 정보 -->
+          <section class="checkout-section">
+            <div class="checkout-section-head">
+              <h2 class="checkout-section-title">배송지 정보</h2>
+              <button class="checkout-outline-btn checkout-outline-btn--sm">배송지 변경</button>
+            </div>
+
+            <label class="checkout-field-label">받는 분</label>
+            <input type="text" class="login-input" value="홍길동">
+
+            <label class="checkout-field-label">연락처</label>
+            <input type="text" class="login-input" value="010-1234-5678">
+
+            <label class="checkout-field-label">배송 주소</label>
+            <div class="checkout-address-row">
+              <input type="text" class="login-input checkout-zip-input" value="06236">
+              <button class="checkout-outline-btn">주소 찾기</button>
+            </div>
+            <input type="text" class="login-input" value="서울특별시 강남구 테헤란로 123">
+            <input type="text" class="login-input" value="101동 101호">
+
+            <label class="login-checkbox-label checkout-default-addr">
+              <input type="checkbox" class="login-checkbox">
+              <span class="login-checkbox-custom"></span>
+              기본 배송지로 설정
+            </label>
+          </section>
+
+          <div class="checkout-divider"></div>
+
+          <!-- 결제 수단 -->
+          <section class="checkout-section">
+            <h2 class="checkout-section-title">결제 수단</h2>
+            <div class="checkout-pay-methods">
+              <button class="checkout-pay-method is-active">
+                토스페이
+                <span class="checkout-pay-badge">추천</span>
+              </button>
+              <button class="checkout-pay-method">신용카드</button>
+              <button class="checkout-pay-method">무통장 입금</button>
+            </div>
+          </section>
+
+          <!-- 결제 상세 -->
+          <section class="checkout-summary-card">
+            <h2 class="checkout-section-title">결제 상세</h2>
+            <div class="cart-summary-row">
+              <span>상품금액</span>
+              <span class="cart-summary-value">110,900원</span>
+            </div>
+            <div class="cart-summary-row">
+              <span>배송비</span>
+              <span class="cart-summary-value">무료배송</span>
+            </div>
+            <div class="cart-summary-row cart-summary-row--discount">
+              <span>할인금액</span>
+              <span class="cart-summary-value">-64,500원</span>
+            </div>
+            <div class="cart-summary-divider"></div>
+            <div class="cart-summary-row cart-summary-row--total">
+              <span>최종 결제 금액</span>
+              <span class="cart-summary-value cart-summary-total">46,400원</span>
+            </div>
+          </section>
+
+          <!-- 약관 동의 -->
+          <section class="checkout-agree-section">
+            <label class="checkout-agree-all">
+              <input type="checkbox" class="login-checkbox">
+              <span class="login-checkbox-custom login-checkbox-custom--lg"></span>
+              전체 동의하기
+            </label>
+            <div class="checkout-divider checkout-divider--tight"></div>
+            <div class="checkout-agree-item">
+              <label class="login-checkbox-label">
+                <input type="checkbox" class="login-checkbox" checked>
+                <span class="login-checkbox-custom"></span>
+                [필수] 개인정보 수집 및 이용 동의
+              </label>
+              <span class="account-list-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg></span>
+            </div>
+            <div class="checkout-agree-item">
+              <label class="login-checkbox-label">
+                <input type="checkbox" class="login-checkbox" checked>
+                <span class="login-checkbox-custom"></span>
+                [필수] 결제 대행 서비스 이용 동의
+              </label>
+              <span class="account-list-chevron"><svg viewBox="0 0 24 24" width="16" height="16" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg></span>
+            </div>
+          </section>
+
+        </div>
+
+        <div class="checkout-pay-bar">
+          <button class="cart-order-btn">46,400원 토스페이로 결제하기</button>
+        </div>
+
+      </section>
+
+      <!-- ===== 페이지: 찜목록 ===== -->
+      <section class="page-section page-wish" id="page-wish">
+
+        <header class="app-header">
+          <button class="icon-btn back-btn" aria-label="뒤로가기">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
+          <span class="app-logo">찜목록</span>
+        </header>
+
+        <div class="wish-search-row" id="wish-search-row" style="display:none;">
+          <span class="icon-search" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+          </span>
+          <input type="text" id="wish-search-input" class="wish-search-input" placeholder="찜한 상품 검색">
+          <button type="button" class="icon-btn" id="wish-search-close" aria-label="검색 닫기">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="app-main wish-main">
+
+          <div class="wish-top-bar" id="wish-top-bar" style="display:none;">
+            <span class="wish-count" id="wish-count">총 0개</span>
+            <div class="sort-dropdown wish-sort-dropdown" data-dropdown="wish-sort">
+              <button class="wish-sort-btn" id="wish-sort-btn" data-dropdown-trigger>
+                <span class="wish-sort-trigger-label">최신순</span>
+                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="#888" stroke-width="1.5">
+                  <path d="M1 1L5 5L9 1" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+              <div class="sort-dropdown-panel" data-dropdown-panel>
+                <button class="sort-option is-active" data-wish-sort-value="newest">최신순</button>
+                <button class="sort-option" data-wish-sort-value="oldest">오래된순</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 찜한 상품이 없을 때 -->
+          <div class="cart-empty-state" id="wish-empty-state">
+            <svg class="icon-heart" viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor"
+              stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+            </svg>
+            <p class="cart-empty-title" id="wish-empty-title">찜한 상품이 없어요</p>
+            <p class="cart-empty-desc" id="wish-empty-desc">마음에 드는 상품을 찜해보세요.</p>
+          </div>
+
+          <!-- 찜한 상품 목록 (JS로 렌더링) -->
+          <section class="product-grid" aria-label="찜한 상품 목록" id="wish-item-list"></section>
+
+        </div>
+      </section>
+
+      <!-- ===== 페이지: 최근 본 상품 ===== -->
+      <section class="page-section page-recent" id="page-recent">
+
+        <header class="app-header">
+          <button class="icon-btn back-btn" aria-label="뒤로가기">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
+          <span class="app-logo">최근 본 상품 <span id="recent-count">(0)</span></span>
+          <button class="text-btn recent-clear-btn" type="button">전체삭제</button>
+        </header>
+
+        <div class="app-main recent-main">
+
+          <!-- 최근 본 상품이 없을 때 -->
+          <div class="cart-empty-state" id="recent-empty-state" style="display:flex;">
+            <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
+            </svg>
+            <p class="cart-empty-title">최근 본 상품이 없어요</p>
+            <p class="cart-empty-desc">둘러본 상품이 여기에 표시돼요.</p>
+          </div>
+
+          <div class="recent-list" id="recent-item-list" style="display:none;">
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ===== 페이지: 브랜드 스토리 ===== -->
+      <section class="page-section page-brand-story" id="page-brand-story">
+        <header class="app-header brand-story-header">
+          <button class="icon-btn back-btn" aria-label="뒤로가기">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
+          <span class="app-logo" data-page="page-home" role="button" tabindex="0">LOCKNLOCK</span>
+        </header>
+
+        <main class="app-main brand-story-main">
+          <div class="brand-story-kicker">브랜드 스토리</div>
+          <h1 class="brand-story-title">Fresh &amp; Crisp</h1>
+
+          <img class="brand-story-hero" src="img/main-tumbler.jpg" alt="락앤락 브랜드 스토리 대표 이미지">
+
+          <section class="brand-story-card">
+            <h2>1978년부터 시작된 혁신</h2>
+            <p>50년의 역사 동안 락앤락은 일상의 신선함을 유지하고 지속 가능한 라이프스타일을 제안해 왔습니다. 우리의 기술은 단순히 음식을 보관하는 것을 넘어, 당신의 삶의 질을 향상시키는 데
+              집중합니다.</p>
+            <p>완벽한 밀폐력으로 시작된 혁신은 이제 최고급 텀블러 라인업으로 이어져, 언제 어디서나 최적의 온도를 유지하는 완벽한 경험을 선사합니다.</p>
+          </section>
+
+          <img class="brand-story-image" src="img/intro-tumbler.jpg" alt="락앤락 텀블러와 일상 공간 이미지">
+
+          <section class="brand-story-card">
+            <h2>독보적인 밀폐력과 보온보냉 기술</h2>
+            <p>진공 단열 기술과 결로 방지 설계로 차가운 음료는 이슬 맺힘 없이 시원하게, 뜨거운 음료는 외부 온도 변화 없이 오래도록 따뜻하게 유지합니다.</p>
+            <ul class="brand-story-list">
+              <li>초정밀 진공 기술로 온도 손실 최소화</li>
+              <li>100% 누수 방지 실리콘 패킹 설계</li>
+              <li>인체공학적 디자인과 프리미엄 소재 사용</li>
+            </ul>
+          </section>
+        </main>
+      </section>
+
+      <!-- ===== 페이지: 로그인 ===== -->
+      <section class="page-section page-login no-tabbar" id="page-login">
+        <header class="app-header">
+          <button class="icon-btn back-btn" aria-label="뒤로가기">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
+          <span class="app-logo">로그인</span>
+          <span style="width:28px"></span>
+        </header>
+
+        <div class="app-main login-main">
+
+          <div class="login-welcome">
+            <h1>Welcome back</h1>
+            <p>LOCKnLOCK에 오신 것을 환영합니다.</p>
+          </div>
+
+          <form class="login-form">
+            <div class="login-input-row">
+              <input type="text" class="login-input" id="login-id" placeholder="이메일 또는 아이디" aria-label="이메일 또는 아이디">
+              <button type="button" class="input-clear-btn" data-target="login-id" aria-label="입력 내용 지우기"
+                style="display:none;">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4"
+                  stroke-linecap="round">
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+            </div>
+            <div class="login-input-row">
+              <input type="password" class="login-input" id="login-password" placeholder="비밀번호" aria-label="비밀번호">
+              <button type="button" class="input-clear-btn" data-target="login-password" aria-label="입력 내용 지우기"
+                style="display:none;">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4"
+                  stroke-linecap="round">
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </button>
+              <button type="button" class="signup-toggle-pw-btn" data-target="login-password" aria-label="비밀번호 표시/숨김">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path class="eye-open" d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" />
+                  <circle class="eye-open" cx="12" cy="12" r="3" />
+                  <path class="eye-closed" style="display:none"
+                    d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8a19.7 19.7 0 0 1 5.06-5.94M9.9 4.24A9.13 9.13 0 0 1 12 4c7 0 11 8 11 8a19.87 19.87 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                  <line class="eye-closed" style="display:none" x1="1" y1="1" x2="23" y2="23" />
+                </svg>
+              </button>
+            </div>
+
+            <div class="login-options-row">
+              <label class="login-checkbox-label">
+                <input type="checkbox" class="login-checkbox">
+                <span class="login-checkbox-custom"></span>
+                로그인 상태 유지
+              </label>
+              <a href="#" class="login-find-pw">비밀번호 찾기</a>
+            </div>
+
+            <button type="submit" class="login-submit-btn">로그인</button>
+          </form>
+
+          <div class="login-divider"><span>SNS 계정으로 로그인</span></div>
+
+          <button class="login-google-btn" type="button">
+            <svg viewBox="0 0 48 48" width="18" height="18" aria-hidden="true">
+              <path fill="#FFC107"
+                d="M43.6 20.5H42V20H24v8h11.3C33.7 32.9 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.6 6.1 29.6 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.7-.4-3.5z" />
+              <path fill="#FF3D00"
+                d="M6.3 14.7l6.6 4.8C14.6 15.9 18.9 13 24 13c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.6 6.1 29.6 4 24 4 16.3 4 9.7 8.3 6.3 14.7z" />
+              <path fill="#4CAF50"
+                d="M24 44c5.5 0 10.4-1.9 14.3-5.1l-6.6-5.4C29.6 35.4 26.9 36 24 36c-5.3 0-9.7-3.1-11.3-7.6l-6.6 5.1C9.6 39.8 16.3 44 24 44z" />
+              <path fill="#1976D2"
+                d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.2-4.2 5.5l6.6 5.4C39.7 37.3 44 31.6 44 24c0-1.3-.1-2.7-.4-3.5z" />
+            </svg>
+            Google 계정으로 로그인
+          </button>
+
+          <p class="login-signup-row">아직 회원이 아니신가요? <a href="#" class="login-signup-link">회원가입</a></p>
+
+        </div>
+
+        <footer class="login-footer">
+          <div class="login-footer-links">
+            <a href="#">이용약관</a>
+            <a href="#">개인정보처리방침</a>
+            <a href="#">고객센터</a>
+          </div>
+          <p class="login-copyright">&copy; 2024 LOCKnLOCK Co., Ltd. All Rights Reserved.</p>
+        </footer>
+      </section>
+
+      <!-- ===== 페이지: 회원가입 ===== -->
+      <section class="page-section page-signup no-tabbar" id="page-signup">
+        <header class="app-header">
+          <button class="icon-btn back-btn" aria-label="뒤로가기">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
+          <span class="app-logo">회원가입</span>
+          <span style="width:28px"></span>
+        </header>
+
+        <div class="app-main login-main">
+
+          <div class="login-welcome">
+            <h1>Create account</h1>
+            <p>이메일과 비밀번호로 간단하게 가입하세요.</p>
+          </div>
+
+          <form class="signup-form" novalidate>
+            <div class="signup-field-group">
+              <div class="signup-input-row">
+                <input type="email" class="login-input" id="signup-email" placeholder="이메일 주소" aria-label="이메일 주소"
+                  autocomplete="email" inputmode="email">
+                <button type="button" class="signup-check-email-btn" id="signup-check-email-btn">중복확인</button>
+              </div>
+              <p class="signup-field-message" id="signup-email-message"></p>
+            </div>
+
+            <div class="signup-field-group">
+              <div class="signup-input-row signup-input-row--pw">
+                <input type="password" class="login-input" id="signup-password" placeholder="비밀번호 (8자 이상)"
+                  aria-label="비밀번호" autocomplete="new-password">
+                <button type="button" class="signup-toggle-pw-btn" data-target="signup-password"
+                  aria-label="비밀번호 표시/숨김">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path class="eye-open" d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" />
+                    <circle class="eye-open" cx="12" cy="12" r="3" />
+                    <path class="eye-closed" style="display:none"
+                      d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8a19.7 19.7 0 0 1 5.06-5.94M9.9 4.24A9.13 9.13 0 0 1 12 4c7 0 11 8 11 8a19.87 19.87 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                    <line class="eye-closed" style="display:none" x1="1" y1="1" x2="23" y2="23" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="signup-field-group">
+              <div class="signup-input-row signup-input-row--pw">
+                <input type="password" class="login-input" id="signup-password-confirm" placeholder="비밀번호 확인"
+                  aria-label="비밀번호 확인" autocomplete="new-password">
+                <button type="button" class="signup-toggle-pw-btn" data-target="signup-password-confirm"
+                  aria-label="비밀번호 확인 표시/숨김">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path class="eye-open" d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" />
+                    <circle class="eye-open" cx="12" cy="12" r="3" />
+                    <path class="eye-closed" style="display:none"
+                      d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8a19.7 19.7 0 0 1 5.06-5.94M9.9 4.24A9.13 9.13 0 0 1 12 4c7 0 11 8 11 8a19.87 19.87 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                    <line class="eye-closed" style="display:none" x1="1" y1="1" x2="23" y2="23" />
+                  </svg>
+                </button>
+              </div>
+              <p class="signup-field-message" id="signup-password-match-message"></p>
+            </div>
+
+            <p class="signup-hint">영문·숫자·특수문자 조합 8자 이상을 권장합니다.</p>
+
+            <div class="signup-agree-group">
+              <label class="signup-agree-item signup-agree-all">
+                <input type="checkbox" class="login-checkbox" id="signup-agree-all">
+                <span class="login-checkbox-custom"></span>
+                <span>전체 동의</span>
+              </label>
+              <div class="signup-agree-divider"></div>
+              <label class="signup-agree-item">
+                <input type="checkbox" class="login-checkbox signup-agree-required" id="signup-agree-terms">
+                <span class="login-checkbox-custom"></span>
+                <span>[필수] 이용약관 동의</span>
+              </label>
+              <label class="signup-agree-item">
+                <input type="checkbox" class="login-checkbox signup-agree-required" id="signup-agree-privacy">
+                <span class="login-checkbox-custom"></span>
+                <span>[필수] 개인정보 처리방침 동의</span>
+              </label>
+              <label class="signup-agree-item">
+                <input type="checkbox" class="login-checkbox" id="signup-agree-marketing">
+                <span class="login-checkbox-custom"></span>
+                <span>[선택] 마케팅 정보 수신 동의</span>
+              </label>
+            </div>
+
+            <button type="submit" class="login-submit-btn">가입하기</button>
+          </form>
+
+          <p class="login-signup-row">이미 계정이 있으신가요? <a href="#" class="login-link-to-login">로그인</a></p>
+
+        </div>
+
+        <footer class="login-footer">
+          <div class="login-footer-links">
+            <a href="#">이용약관</a>
+            <a href="#">개인정보처리방침</a>
+            <a href="#">고객센터</a>
+          </div>
+          <p class="login-copyright">&copy; 2024 LOCKnLOCK Co., Ltd. All Rights Reserved.</p>
+        </footer>
+      </section>
+
+      <!-- ===== 페이지: 마이페이지 ===== -->
+      <section class="page-section page-mypage" id="page-mypage">
+
+        <header class="app-header">
+          <button class="icon-btn menu-btn" aria-label="메뉴 열기">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          </button>
+          <span class="app-logo">마이페이지</span>
+        </header>
+
+        <div class="app-main mypage-main">
+
+          <!-- 로그인 전 프로필 카드 (3개의 버튼) -->
+          <div class="mypage-profile-card logged-out-only">
+            <div class="mypage-user-info" style="width: 100%;">
+              <p class="mypage-welcome" style="margin-bottom: 12px; font-weight: 600; text-align: center;">로그인이 필요합니다.
+              </p>
+              <div class="mypage-login-buttons">
+                <button class="mypage-btn btn-login" data-page="page-login">일반 로그인</button>
+                <button class="mypage-btn btn-google-login">Google 로그인</button>
+                <button class="mypage-btn btn-signup">회원가입</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 로그인 후 프로필 카드 (프로필 + 로그아웃) -->
+          <div class="mypage-profile-card logged-in-only" style="display: none;">
+            <div class="mypage-avatar">
+              <img src="img/avatar.jpg" alt="프로필 사진">
+            </div>
+            <div class="mypage-user-info">
+              <div class="mypage-user-row">
+                <span class="mypage-username">홍길동</span>
+                <span class="mypage-grade">골드</span>
+              </div>
+              <p class="mypage-welcome">홍길동님, 환영합니다.</p>
+            </div>
+            <button class="mypage-logout-btn btn-logout" style="margin-left: auto;">로그아웃</button>
+          </div>
+
+          <!-- 주문/배송조회 -->
+          <div class="mypage-order-card">
+            <div class="mypage-order-header">
+              <h3 class="mypage-section-title">주문/배송조회</h3>
+              <span class="mypage-period">최근 1개월</span>
+            </div>
+            <div class="mypage-order-grid">
+              <div class="mypage-order-item">
+                <div class="mypage-order-icon">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"
+                    stroke-linecap="round">
+                    <rect x="2" y="5" width="20" height="14" rx="2" />
+                    <line x1="2" y1="10" x2="22" y2="10" />
+                  </svg>
+                </div>
+                <span class="mypage-order-label">결제대기</span>
+                <span class="mypage-order-count">0</span>
+              </div>
+              <div class="mypage-order-item mypage-order-item--active">
+                <div class="mypage-order-icon">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="1" y="3" width="15" height="13" rx="2" />
+                    <polyline points="16 8 20 8 23 11 23 16 16 16 16 8" />
+                    <circle cx="5.5" cy="18.5" r="2.5" />
+                    <circle cx="18.5" cy="18.5" r="2.5" />
+                  </svg>
+                </div>
+                <span class="mypage-order-label">배송중</span>
+                <span class="mypage-order-count mypage-order-count--active">0</span>
+              </div>
+              <div class="mypage-order-item">
+                <div class="mypage-order-icon">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                    <polyline points="22 4 12 14.01 9 11.01" />
+                  </svg>
+                </div>
+                <span class="mypage-order-label">배송완료</span>
+                <span class="mypage-order-count">0</span>
+              </div>
+              <div class="mypage-order-item">
+                <div class="mypage-order-icon">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="1 4 1 10 7 10" />
+                    <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" />
+                  </svg>
+                </div>
+                <span class="mypage-order-label">취소/반품</span>
+                <span class="mypage-order-count">0</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 찜목록 / 최근 본 상품 / 리뷰 -->
+          <div class="mypage-shortcut-grid">
+            <div class="mypage-shortcut-item" data-page="page-wish">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#FF3B30" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path
+                  d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+              </svg>
+              <span class="mypage-shortcut-label">찜목록</span>
+              <span class="mypage-shortcut-count" id="mypage-wish-count">0</span>
+            </div>
+            <div class="mypage-shortcut-item" data-page="page-recent">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
+              <span class="mypage-shortcut-label">최근 본 상품</span>
+              <span class="mypage-shortcut-count" id="mypage-recent-count">0</span>
+            </div>
+            <div class="mypage-shortcut-item">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="16" y1="13" x2="8" y2="13" />
+                <line x1="16" y1="17" x2="8" y2="17" />
+              </svg>
+              <span class="mypage-shortcut-label">작성 가능한 리뷰</span>
+              <span class="mypage-shortcut-count">0</span>
+            </div>
+          </div>
+
+          <!-- 메뉴 목록 -->
+          <div class="mypage-menu-list">
+            <a href="#" class="mypage-menu-item">
+              <span class="mypage-menu-icon">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <polyline points="14 2 14 8 20 8" />
+                  <line x1="16" y1="13" x2="8" y2="13" />
+                  <line x1="16" y1="17" x2="8" y2="17" />
+                </svg>
+              </span>
+              <span>주문 내역 조회</span>
+              <svg class="mypage-menu-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </a>
+            <a href="#" class="mypage-menu-item">
+              <span class="mypage-menu-icon">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="15" y1="9" x2="9" y2="15" />
+                  <line x1="9" y1="9" x2="15" y2="15" />
+                </svg>
+              </span>
+              <span>주문 취소 신청</span>
+              <svg class="mypage-menu-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </a>
+            <a href="#" class="mypage-menu-item">
+              <span class="mypage-menu-icon">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+              </span>
+              <span>배송지 주소록 편집</span>
+              <svg class="mypage-menu-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </a>
+            <a href="#" class="mypage-menu-item">
+              <span class="mypage-menu-icon">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                </svg>
+              </span>
+              <span>고객센터</span>
+              <svg class="mypage-menu-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </a>
+            <a href="#" class="mypage-menu-item" data-page="page-settings">
+              <span class="mypage-menu-icon">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="3" />
+                  <path
+                    d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                </svg>
+              </span>
+              <span>설정</span>
+              <svg class="mypage-menu-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </a>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ===== 페이지: 설정 ===== -->
+      <section class="page-section page-settings" id="page-settings">
+
+        <header class="app-header">
+          <button class="icon-btn back-btn" aria-label="뒤로가기">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
+          <span class="app-logo">설정</span>
+          <span style="width:28px"></span>
+        </header>
+
+        <div class="app-main settings-main">
+
+          <div class="settings-group">
+            <p class="settings-group-title">계정 설정</p>
+            <div class="settings-list">
+              <a href="#" class="settings-item logged-in-only" style="display: none;">
+                <span>프로필 수정</span>
+                <svg class="mypage-menu-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </a>
+              <a href="#" class="settings-item logged-in-only" style="display: none;">
+                <span>비밀번호 변경</span>
+                <svg class="mypage-menu-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </a>
+              <a href="#" class="settings-item">
+                <span>알림 설정</span>
+                <svg class="mypage-menu-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="settings-group">
+            <p class="settings-group-title">서비스 정보</p>
+            <div class="settings-list">
+              <a href="#" class="settings-item">
+                <span>이용약관</span>
+                <svg class="mypage-menu-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </a>
+              <a href="#" class="settings-item">
+                <span>개인정보 처리방침</span>
+                <svg class="mypage-menu-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </a>
+              <div class="settings-item settings-item--static">
+                <span>버전 정보</span>
+                <span class="settings-item-value">v1.0.4</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-group logged-in-only" style="display: none;">
+            <p class="settings-group-title">기타</p>
+            <div class="settings-list">
+              <a href="#" class="settings-item btn-logout">
+                <span>로그아웃</span>
+              </a>
+              <a href="#" class="settings-item settings-item--danger">
+                <span>탈퇴하기</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 최하단 고정 네비게이션 탭바 -->
+      <footer class="bottom-tabbar">
+        <a class="tab-item is-active" href="#" data-page="page-home">
+          <span class="tab-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" />
+            </svg></span>
+          <span class="tab-label">홈</span>
+        </a>
+        <a class="tab-item" href="#" data-page="page-cart">
+          <span class="tab-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="9" cy="21" r="1" />
+              <circle cx="20" cy="21" r="1" />
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+            </svg></span>
+          <span class="tab-label">장바구니</span>
+        </a>
+        <a class="tab-item" href="#" data-page="page-wish">
+          <span class="tab-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.6z" />
+            </svg></span>
+          <span class="tab-label">찜</span>
+        </a>
+        <a class="tab-item" href="#" data-page="page-mypage">
+          <span class="tab-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="8" r="4" />
+              <path d="M4 21c0-4 4-6 8-6s8 2 8 6" />
+            </svg></span>
+          <span class="tab-label">마이페이지</span>
+        </a>
+      </footer>
+
+    </div>
+
+  </div>
+
+  <!-- 토스트 알림 -->
+  <div id="toast" class="toast-notification">로그인 성공</div>
+
+  <!-- 안내 팝업 (기능 연결 준비중 안내) -->
+  <div id="alert-modal-overlay" class="alert-modal-overlay">
+    <div class="alert-modal" role="alertdialog" aria-modal="true">
+      <p class="alert-modal-message" id="alert-modal-message"></p>
+      <button type="button" class="alert-modal-confirm-btn" id="alert-modal-confirm">확인</button>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+
+</html>
