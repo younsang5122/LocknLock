@@ -379,9 +379,13 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ==============================
-  // 장바구니 (메모리 전용 상태 — 새로고침하면 초기화됨)
+  // 장바구니 및 결제 (메모리 전용 상태)
   // ==============================
+  const TOSS_CLIENT_KEY = 'test_ck_ZLKGPx4M3M4mWowK1x0w8BaWypv1';
   let cart = []; // { id, name, image, price, qty }
+  let currentCheckoutItems = [];
+  let currentCheckoutTotal = 46400;
+  let selectedPayMethod = '토스페이';
 
   const formatWon = (num) => `${num.toLocaleString('ko-KR')}원`;
 
@@ -439,8 +443,27 @@ document.addEventListener('DOMContentLoaded', () => {
     renderCart();
   }
 
-  // 결제 페이지의 "주문 상품" 영역을 채움 (기본은 장바구니 내용, '바로 구매'일 때는 넘겨받은 단일 상품)
+  function updateCheckoutSummaryCard(productAmount, shipping, total) {
+    const summaryProduct = document.getElementById('checkout-summary-product');
+    const summaryShipping = document.getElementById('checkout-summary-shipping');
+    const summaryDiscount = document.getElementById('checkout-summary-discount');
+    const summaryTotal = document.getElementById('checkout-summary-total');
+    const submitBtn = document.getElementById('checkout-pay-submit-btn');
+
+    if (summaryProduct) summaryProduct.textContent = formatWon(productAmount);
+    if (summaryShipping) summaryShipping.textContent = shipping === 0 ? '무료배송' : `+ ${formatWon(shipping)}`;
+    if (summaryDiscount) summaryDiscount.textContent = '0원';
+    if (summaryTotal) summaryTotal.textContent = formatWon(total);
+
+    if (submitBtn) {
+      const methodText = selectedPayMethod === '토스페이' ? '토스페이로' : selectedPayMethod === '카드' ? '카드' : '무통장';
+      submitBtn.textContent = `${formatWon(total)} ${methodText} 결제하기`;
+    }
+  }
+
+  // 결제 페이지의 "주문 상품" 및 금액 영역을 채움 (기본은 장바구니 내용, '바로 구매'일 때는 넘겨받은 단일 상품)
   function renderCheckoutSummary(items = cart) {
+    currentCheckoutItems = items;
     const thumbEl = document.querySelector('.checkout-order-thumb');
     const nameEl = document.querySelector('.checkout-order-name');
     const priceEl = document.querySelector('.checkout-order-price');
@@ -457,6 +480,8 @@ document.addEventListener('DOMContentLoaded', () => {
       thumbEl.removeAttribute('src');
       nameEl.innerHTML = '담긴 상품이 없어요';
       priceEl.textContent = '0원';
+      currentCheckoutTotal = 0;
+      updateCheckoutSummaryCard(0, 0, 0);
       return;
     }
 
@@ -474,7 +499,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const productAmount = items.reduce((sum, item) => sum + item.price * item.qty, 0);
     const shipping = productAmount >= 30000 ? 0 : 3000;
-    priceEl.textContent = formatWon(productAmount + shipping);
+    const total = productAmount + shipping;
+    currentCheckoutTotal = total;
+
+    priceEl.textContent = formatWon(total);
 
     // 펼침 목록 채우기 (2개 이상일 때만 의미가 있음)
     if (listEl && hasMultiple) {
@@ -488,6 +516,8 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       `).join('');
     }
+
+    updateCheckoutSummaryCard(productAmount, shipping, total);
   }
 
   // 주문 상품 '외 N건 ⌄' 화살표 클릭 시 전체 상품 목록 펼치기/접기
@@ -1350,6 +1380,99 @@ document.addEventListener('DOMContentLoaded', () => {
       const allChecked = Array.from(agreeItems).every((item) => item.checked);
       agreeAllCheckbox.checked = allChecked;
     }
+
+    // 결제 수단 선택 버튼 탭 전환
+    const payMethodContainer = document.getElementById('checkout-pay-methods');
+    if (payMethodContainer) {
+      const methodBtns = payMethodContainer.querySelectorAll('.checkout-pay-method');
+      methodBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          methodBtns.forEach((b) => b.classList.remove('is-active'));
+          btn.classList.add('is-active');
+          selectedPayMethod = btn.getAttribute('data-method') || btn.innerText.trim();
+          const productAmount = currentCheckoutItems.reduce((sum, item) => sum + item.price * item.qty, 0);
+          const shipping = (productAmount >= 30000 || productAmount === 0) ? 0 : 3000;
+          updateCheckoutSummaryCard(productAmount, shipping, currentCheckoutTotal);
+        });
+      });
+    }
+
+    // 토스페이 / 토스페이먼츠 결제 버튼 클릭 시 결제창 띄우기
+    const checkoutPaySubmitBtn = document.getElementById('checkout-pay-submit-btn');
+    if (checkoutPaySubmitBtn) {
+      checkoutPaySubmitBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        // 필수 약관 동의 체크
+        const agreeItems = checkoutSection.querySelectorAll('.checkout-agree-item input[type="checkbox"]');
+        const allRequiredAgreed = Array.from(agreeItems).every((cb) => cb.checked);
+        if (!allRequiredAgreed) {
+          showAlertModal('필수 약관에 동의해 주세요.');
+          return;
+        }
+
+        if (typeof TossPayments === 'undefined') {
+          showAlertModal('토스페이먼츠 결제 모듈을 불러오지 못했습니다. 네트워크 연결을 확인해 주세요.');
+          return;
+        }
+
+        // 받는 분 이름
+        const receiverInput = document.getElementById('checkout-receiver-name');
+        const customerName = (receiverInput && receiverInput.value.trim()) ? receiverInput.value.trim() : '홍길동';
+
+        // 주문명 생성
+        let orderName = '메트로 머그 475ml (네이비) 외 1건';
+        if (currentCheckoutItems.length > 0) {
+          const first = currentCheckoutItems[0];
+          orderName = currentCheckoutItems.length > 1
+            ? `${first.name} 외 ${currentCheckoutItems.length - 1}건`
+            : first.name;
+        }
+
+        const amount = currentCheckoutTotal > 0 ? currentCheckoutTotal : 46400;
+        const orderId = `ORDER_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`;
+
+        const tossPayments = TossPayments(TOSS_CLIENT_KEY);
+        const baseUrl = window.location.protocol + '//' + window.location.host + window.location.pathname;
+
+        tossPayments.requestPayment(selectedPayMethod, {
+          amount: amount,
+          orderId: orderId,
+          orderName: orderName,
+          customerName: customerName,
+          successUrl: baseUrl + '?payment=success',
+          failUrl: baseUrl + '?payment=fail',
+        }).catch((error) => {
+          if (error.code === 'USER_CANCEL') {
+            showToast('결제가 취소되었습니다.');
+          } else if (error.code) {
+            showAlertModal(`결제 오류: ${error.message || error.code}`);
+          }
+        });
+      });
+    }
+
+    // URL 결제 결과 파라미터 처리 (성공/실패 피드백)
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('payment') === 'success' || urlParams.has('paymentKey')) {
+      const orderId = urlParams.get('orderId');
+      cart = [];
+      renderCart();
+      const msg = orderId
+        ? `토스페이 결제가 성공적으로 완료되었습니다!\n(주문번호: ${orderId})`
+        : '토스페이 결제가 성공적으로 완료되었습니다!';
+      showAlertModal(msg, () => {
+        const cleanUrl = window.location.protocol + '//' + window.location.host + window.location.pathname;
+        window.history.replaceState({}, document.title, cleanUrl);
+        goToPage('page-home');
+      });
+    } else if (urlParams.get('payment') === 'fail' || urlParams.has('code')) {
+      const failMessage = urlParams.get('message') || '결제에 실패하였습니다.';
+      showAlertModal(`결제 실패: ${failMessage}`, () => {
+        const cleanUrl = window.location.protocol + '//' + window.location.host + window.location.pathname;
+        window.history.replaceState({}, document.title, cleanUrl);
+      });
+    }
   }
 
   // ==============================
@@ -1796,6 +1919,8 @@ document.addEventListener('DOMContentLoaded', () => {
     '.cart-checkbox',
     '#cart-select-all-checkbox',
     '#checkout-order-toggle',
+    '#checkout-pay-submit-btn',
+    '.checkout-pay-method',
     '.drawer-close-btn',
     '.menu-btn',
     '.pd-color-swatch',

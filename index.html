@@ -2062,10 +2062,10 @@
             </div>
 
             <label class="checkout-field-label">받는 분</label>
-            <input type="text" class="login-input" value="홍길동">
+            <input type="text" class="login-input" id="checkout-receiver-name" value="홍길동">
 
             <label class="checkout-field-label">연락처</label>
-            <input type="text" class="login-input" value="010-1234-5678">
+            <input type="text" class="login-input" id="checkout-receiver-phone" value="010-1234-5678">
 
             <label class="checkout-field-label">배송 주소</label>
             <div class="checkout-address-row">
@@ -2087,13 +2087,13 @@
           <!-- 결제 수단 -->
           <section class="checkout-section">
             <h2 class="checkout-section-title">결제 수단</h2>
-            <div class="checkout-pay-methods">
-              <button class="checkout-pay-method is-active">
+            <div class="checkout-pay-methods" id="checkout-pay-methods">
+              <button class="checkout-pay-method is-active" data-method="토스페이">
                 토스페이
                 <span class="checkout-pay-badge">추천</span>
               </button>
-              <button class="checkout-pay-method">신용카드</button>
-              <button class="checkout-pay-method">무통장 입금</button>
+              <button class="checkout-pay-method" data-method="카드">신용카드</button>
+              <button class="checkout-pay-method" data-method="가상계좌">무통장 입금</button>
             </div>
           </section>
 
@@ -2102,20 +2102,20 @@
             <h2 class="checkout-section-title">결제 상세</h2>
             <div class="cart-summary-row">
               <span>상품금액</span>
-              <span class="cart-summary-value">110,900원</span>
+              <span class="cart-summary-value" id="checkout-summary-product">110,900원</span>
             </div>
             <div class="cart-summary-row">
               <span>배송비</span>
-              <span class="cart-summary-value">무료배송</span>
+              <span class="cart-summary-value" id="checkout-summary-shipping">무료배송</span>
             </div>
             <div class="cart-summary-row cart-summary-row--discount">
               <span>할인금액</span>
-              <span class="cart-summary-value">-64,500원</span>
+              <span class="cart-summary-value" id="checkout-summary-discount">0원</span>
             </div>
             <div class="cart-summary-divider"></div>
             <div class="cart-summary-row cart-summary-row--total">
               <span>최종 결제 금액</span>
-              <span class="cart-summary-value cart-summary-total">46,400원</span>
+              <span class="cart-summary-value cart-summary-total" id="checkout-summary-total">46,400원</span>
             </div>
           </section>
 
@@ -2154,7 +2154,7 @@
         </div>
 
         <div class="checkout-pay-bar">
-          <button class="cart-order-btn">46,400원 토스페이로 결제하기</button>
+          <button class="cart-order-btn" id="checkout-pay-submit-btn">46,400원 토스페이로 결제하기</button>
         </div>
 
       </section>
@@ -2851,6 +2851,7 @@
     </div>
   </div>
 
+  <script src="https://js.tosspayments.com/v1/payment"></script>
   <script src="main.js"></script>
 </body>
 
