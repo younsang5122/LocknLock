@@ -1476,9 +1476,31 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==============================
-  // 로그인 / 로그아웃 상태 관리 & 인터랙션
+  // Firebase Auth 설정 & 연동
   // ==============================
+  const firebaseConfig = {
+    apiKey: "AIzaSyBRs87dL43yttlJjqfu-PZG3NFKQROPYV8",
+    authDomain: "locknlock-e936e.firebaseapp.com",
+    projectId: "locknlock-e936e",
+    storageBucket: "locknlock-e936e.firebasestorage.app",
+    messagingSenderId: "639512598024",
+    appId: "1:639512598024:web:0cff067ebf6e69e38223bd"
+  };
+
+  let firebaseAuth = null;
+  let googleAuthProvider = null;
+
+  if (typeof firebase !== 'undefined') {
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
+    firebaseAuth = firebase.auth();
+    googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+  }
+
   let isLoggedIn = false;
+  const DEFAULT_AVATAR_DRAWER = 'img/Profile Avatar.jpg';
+  const DEFAULT_AVATAR_MYPAGE = 'img/avatar.jpg';
 
   // 토스트 메시지 띄우기 함수
   const showToast = (message) => {
@@ -1494,7 +1516,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 로그인 성공 처리 함수
   // forcePage를 지정하면 이동 기록과 상관없이 항상 해당 페이지로 이동함
-  const login = (username, forcePage) => {
+  const login = (username, avatarUrl, forcePage) => {
+    // avatarUrl이 페이지 문자열(예: 'page-home')인 경우 호환 처리
+    if (typeof avatarUrl === 'string' && (avatarUrl.startsWith('page-') || avatarUrl === '')) {
+      forcePage = avatarUrl;
+      avatarUrl = null;
+    }
+
     isLoggedIn = true;
 
     // 유저명 및 환영 메시지 업데이트
@@ -1504,6 +1532,13 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.mypage-welcome').forEach((el) => {
       el.textContent = `${username}님, 환영합니다.`;
     });
+
+    // 아바타 프로필 이미지 업데이트 (구글 로그인 프로필 사진 등)
+    if (avatarUrl) {
+      document.querySelectorAll('.drawer-avatar, .mypage-avatar img').forEach((img) => {
+        img.src = avatarUrl;
+      });
+    }
 
     // UI 보이기/숨기기 처리
     document.querySelectorAll('.logged-out-only').forEach((el) => {
@@ -1539,6 +1574,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const logout = () => {
     isLoggedIn = false;
 
+    // Firebase Auth 로그아웃 처리
+    if (firebaseAuth && firebaseAuth.currentUser) {
+      firebaseAuth.signOut().catch((err) => console.error('Firebase Logout Error:', err));
+    }
+
+    // 기본 프로필 이미지로 복원
+    const drawerAvatar = document.querySelector('.drawer-avatar');
+    if (drawerAvatar) drawerAvatar.src = DEFAULT_AVATAR_DRAWER;
+    const mypageAvatar = document.querySelector('.mypage-avatar img');
+    if (mypageAvatar) mypageAvatar.src = DEFAULT_AVATAR_MYPAGE;
+
     // UI 보이기/숨기기 처리
     document.querySelectorAll('.logged-out-only').forEach((el) => {
       el.style.display = '';
@@ -1550,6 +1596,55 @@ document.addEventListener('DOMContentLoaded', () => {
     showToast('로그아웃 완료');
     goToPage('page-home', { syncTab: true });
   };
+
+  // 실제 구글 로그인 인증 핸들러 (Firebase signInWithPopup)
+  const handleGoogleAuth = (targetBtn, forcePage) => {
+    if (!firebaseAuth || !googleAuthProvider) {
+      showToast('Firebase SDK 로드 실패! 인터넷 연결을 확인해주세요.');
+      return;
+    }
+
+    const originalContent = targetBtn ? targetBtn.innerHTML : '';
+    if (targetBtn) {
+      targetBtn.disabled = true;
+      targetBtn.innerHTML = `<span class="login-spinner"></span> 로그인 중...`;
+    }
+
+    firebaseAuth.signInWithPopup(googleAuthProvider)
+      .then((result) => {
+        const user = result.user;
+        const displayName = user.displayName || (user.email ? user.email.split('@')[0] : 'Google 사용자');
+        const photoURL = user.photoURL || null;
+        login(displayName, photoURL, forcePage);
+      })
+      .catch((error) => {
+        console.error('Google Auth Error:', error);
+        if (error.code === 'auth/popup-closed-by-user' || error.code === 'auth/cancelled-popup-request') {
+          showToast('구글 로그인이 취소되었습니다.');
+        } else if (error.code === 'auth/unauthorized-domain') {
+          showToast('승인되지 않은 도메인입니다. Firebase 콘솔 설정 필요');
+        } else {
+          showToast(`구글 로그인 실패: ${error.message || '인증 오류'}`);
+        }
+      })
+      .finally(() => {
+        if (targetBtn) {
+          targetBtn.disabled = false;
+          targetBtn.innerHTML = originalContent;
+        }
+      });
+  };
+
+  // Firebase Auth 상태 변경 감지 및 자동 로그인 유지
+  if (firebaseAuth) {
+    firebaseAuth.onAuthStateChanged((user) => {
+      if (user && !isLoggedIn) {
+        const displayName = user.displayName || (user.email ? user.email.split('@')[0] : 'Google 사용자');
+        const photoURL = user.photoURL || null;
+        login(displayName, photoURL);
+      }
+    });
+  }
 
   // 일반 로그인 폼 서브밋 핸들러
   const loginForm = document.querySelector('.login-form');
@@ -1618,16 +1713,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // SNS 구글 로그인 버튼 (로그인 페이지용) — 로그인 후 항상 홈 화면으로 이동
   const googleBtn = document.querySelector('.login-google-btn');
   if (googleBtn) {
-    googleBtn.addEventListener('click', () => {
-      const originalContent = googleBtn.innerHTML;
-      googleBtn.disabled = true;
-      googleBtn.innerHTML = `<span class="login-spinner"></span> 로그인 중...`;
-
-      setTimeout(() => {
-        googleBtn.disabled = false;
-        googleBtn.innerHTML = originalContent;
-        login('Google 사용자', 'page-home');
-      }, 1500);
+    googleBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      handleGoogleAuth(googleBtn, 'page-home');
     });
   }
 
@@ -1637,15 +1725,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const subGoogleBtn = e.target.closest('.btn-google-login');
     if (subGoogleBtn) {
       e.preventDefault();
-      const originalContent = subGoogleBtn.innerHTML;
-      subGoogleBtn.disabled = true;
-      subGoogleBtn.innerHTML = `<span class="login-spinner"></span> 로그인 중...`;
-
-      setTimeout(() => {
-        subGoogleBtn.disabled = false;
-        subGoogleBtn.innerHTML = originalContent;
-        login('Google 사용자');
-      }, 1200);
+      handleGoogleAuth(subGoogleBtn);
       return;
     }
 
