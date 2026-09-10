@@ -1347,15 +1347,17 @@ document.addEventListener('DOMContentLoaded', () => {
     let homePriceFilterActive = false;
     let homePriceMin = 5000;
     let homePriceMax = 50000;
+    let homeTodayOnly = false;
 
     const renderHomeProducts = () => {
       const query = homeSearchInput ? homeSearchInput.value.trim().toLowerCase() : '';
 
-      // 검색어 + 가격대 조건을 모두 만족하는 상품만 추림 (홈 화면 진열 상품 + 카테고리 상품 전체 대상)
+      // 검색어 + 가격대 + 오늘출발 조건을 모두 만족하는 상품만 추림 (홈 화면 진열 상품 + 카테고리 상품 전체 대상)
       let visible = homeCardData.filter((data) => {
         const matchesSearch = !query || data.searchText.includes(query);
         const matchesPrice = !homePriceFilterActive || (data.price >= homePriceMin && data.price <= homePriceMax);
-        return matchesSearch && matchesPrice;
+        const matchesToday = !homeTodayOnly || !!data.card.querySelector('.badge--today');
+        return matchesSearch && matchesPrice && matchesToday;
       });
 
       // 정렬 적용
@@ -1377,6 +1379,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (homeCountEl) {
         homeCountEl.textContent = visible.length;
+      }
+      if (visible.length === 0) {
+        homeEmptyMessage.textContent = query ? '검색 결과가 없습니다.' : '오늘출발 상품이 없습니다.';
       }
       homeEmptyMessage.style.display = visible.length === 0 ? 'block' : 'none';
       homeProductGrid.style.display = visible.length === 0 ? 'none' : '';
@@ -1419,6 +1424,16 @@ document.addEventListener('DOMContentLoaded', () => {
           renderHomeProducts();
         });
       }
+    }
+
+    // '오늘출발' 칩 클릭 시 활성/비활성 토글 후 필터 반영 (카테고리 페이지의 오늘출발 칩과 동일한 방식)
+    const homeShippingChip = homeSection.querySelector('.home-shipping-chip');
+    if (homeShippingChip) {
+      homeShippingChip.addEventListener('click', () => {
+        homeTodayOnly = !homeTodayOnly;
+        homeShippingChip.classList.toggle('is-active', homeTodayOnly);
+        renderHomeProducts();
+      });
     }
 
     renderHomeProducts();
