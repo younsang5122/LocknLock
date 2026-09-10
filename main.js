@@ -1239,8 +1239,8 @@ document.addEventListener('DOMContentLoaded', () => {
       return match ? parseInt(match[1], 10) : 0;
     };
 
-    // 카드별 검색/정렬/필터용 데이터 캐싱 (최초 1회)
-    const homeCardData = Array.from(homeProductGrid.querySelectorAll('.product-card')).map((card, index) => {
+    // 카드별 검색/정렬/필터용 데이터 캐싱 (최초 1회, 홈 화면에 원래 진열되어 있던 상품)
+    const nativeHomeCardData = Array.from(homeProductGrid.querySelectorAll('.product-card')).map((card, index) => {
       const nameEl = card.querySelector('.product-name');
       const brandEl = card.querySelector('.product-brand');
       const priceEl = card.querySelector('.product-price');
@@ -1260,6 +1260,80 @@ document.addEventListener('DOMContentLoaded', () => {
       return { card, index, price, reviews, searchText };
     });
 
+    // ==============================
+    // 홈 화면에 카테고리 페이지(텀블러/유아용/스포츠용/휴대용/식탁용/뚜껑빨대)의 상품도
+    // 함께 진열되도록, 카테고리 페이지들의 상품 카드를 복제해 홈 그리드에 추가해둠
+    // (원본 카드는 각 카테고리 페이지에 그대로 남아있고, 여기서는 복제본만 사용)
+    // ==============================
+    const homeProductNames = new Set(
+      nativeHomeCardData.map((data) => {
+        const nameEl = data.card.querySelector('.product-name');
+        return nameEl ? nameEl.textContent.replace(/\s+/g, ' ').trim() : '';
+      })
+    );
+
+    // 카테고리 상품을 홈 화면에 복제해 넣을 때, 장바구니 담기 버튼에도 동일한 담기 동작을 연결해줌
+    // (찜하기 버튼과 카드 클릭(상세 이동)은 문서 전체에 위임된 리스너가 처리하므로 별도 연결이 필요 없음)
+    function bindHomeExtraCardEvents(card) {
+      const btn = card.querySelector('.add-cart-btn');
+      if (!btn) return;
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        addToCart(getProductInfoFromCard(card));
+
+        btn.classList.remove('is-pop');
+        void btn.offsetWidth;
+        btn.classList.add('is-active');
+        btn.classList.add('is-pop');
+      });
+      btn.addEventListener('animationend', () => {
+        btn.classList.remove('is-pop');
+        btn.classList.remove('is-active');
+      });
+    }
+
+    const extraHomeCardData = [];
+    const seenOtherNames = new Set();
+    Array.from(document.querySelectorAll('.page-product-list .product-grid .product-card')).forEach((sourceCard) => {
+      const nameEl = sourceCard.querySelector('.product-name');
+      const name = nameEl ? nameEl.textContent.replace(/\s+/g, ' ').trim() : '';
+      // 이미 홈 화면에 진열된 상품이거나, 다른 카테고리 페이지에 중복으로 들어있는 상품은 한 번만 추가
+      if (!name || homeProductNames.has(name) || seenOtherNames.has(name)) return;
+      seenOtherNames.add(name);
+
+      const card = sourceCard.cloneNode(true);
+      card.classList.add('is-extra-category-card');
+      bindHomeExtraCardEvents(card);
+      homeProductGrid.appendChild(card);
+
+      const brandEl = card.querySelector('.product-brand');
+      const priceEl = card.querySelector('.product-price');
+      const reviewEl = card.querySelector('.review-count');
+
+      let price = 0;
+      if (priceEl) {
+        const priceClone = priceEl.cloneNode(true);
+        priceClone.querySelectorAll('.discount, .price-strike').forEach((el) => el.remove());
+        price = parseHomeNumber(priceClone.textContent);
+      }
+
+      const reviews = reviewEl ? parseHomeNumber(reviewEl.textContent) : 0;
+      const searchText = `${brandEl ? brandEl.textContent : ''} ${card.querySelector('.product-name') ? card.querySelector('.product-name').textContent : ''}`
+        .toLowerCase();
+
+      extraHomeCardData.push({
+        card,
+        index: nativeHomeCardData.length + extraHomeCardData.length,
+        price,
+        reviews,
+        searchText,
+      });
+    });
+
+    // 홈 화면 원래 상품 + 카테고리에서 가져온 상품을 합쳐서 하나의 목록으로 다룸
+    const homeCardData = nativeHomeCardData.concat(extraHomeCardData);
+
     // 검색 결과 없음 안내 문구 (최초 1회 생성)
     let homeEmptyMessage = homeProductGrid.parentElement.querySelector('.product-empty-message');
     if (!homeEmptyMessage) {
@@ -1277,7 +1351,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const renderHomeProducts = () => {
       const query = homeSearchInput ? homeSearchInput.value.trim().toLowerCase() : '';
 
-      // 검색어 + 가격대 조건을 모두 만족하는 상품만 추림
+      // 검색어 + 가격대 조건을 모두 만족하는 상품만 추림 (홈 화면 진열 상품 + 카테고리 상품 전체 대상)
       let visible = homeCardData.filter((data) => {
         const matchesSearch = !query || data.searchText.includes(query);
         const matchesPrice = !homePriceFilterActive || (data.price >= homePriceMin && data.price <= homePriceMax);
