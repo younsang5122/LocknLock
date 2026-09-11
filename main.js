@@ -1569,23 +1569,30 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==============================
   const env = (typeof window !== 'undefined' && window.env) || {};
   const firebaseConfig = {
-    apiKey: env.VITE_FIREBASE_API_KEY || "",
-    authDomain: env.VITE_FIREBASE_AUTH_DOMAIN || "",
-    projectId: env.VITE_FIREBASE_PROJECT_ID || "",
-    storageBucket: env.VITE_FIREBASE_STORAGE_BUCKET || "",
-    messagingSenderId: env.VITE_FIREBASE_MESSAGING_SENDER_ID || "",
-    appId: env.VITE_FIREBASE_APP_ID || ""
+    apiKey: env.VITE_FIREBASE_API_KEY || "AIzaSyBRs87dL43yttlJjqfu-PZG3NFKQROPYV8",
+    authDomain: env.VITE_FIREBASE_AUTH_DOMAIN || "locknlock-e936e.firebaseapp.com",
+    projectId: env.VITE_FIREBASE_PROJECT_ID || "locknlock-e936e",
+    storageBucket: env.VITE_FIREBASE_STORAGE_BUCKET || "locknlock-e936e.firebasestorage.app",
+    messagingSenderId: env.VITE_FIREBASE_MESSAGING_SENDER_ID || "639512598024",
+    appId: env.VITE_FIREBASE_APP_ID || "1:639512598024:web:0cff067ebf6e69e38223bd"
   };
 
   let firebaseAuth = null;
   let googleAuthProvider = null;
 
   if (typeof firebase !== 'undefined') {
-    if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
+    try {
+      if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+      }
+      firebaseAuth = firebase.auth();
+      googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+      googleAuthProvider.setCustomParameters({
+        prompt: 'select_account'
+      });
+    } catch (err) {
+      console.error('Firebase Auth Init Error:', err);
     }
-    firebaseAuth = firebase.auth();
-    googleAuthProvider = new firebase.auth.GoogleAuthProvider();
   }
 
   let isLoggedIn = false;
@@ -1687,10 +1694,22 @@ document.addEventListener('DOMContentLoaded', () => {
     goToPage('page-home', { syncTab: true });
   };
 
-  // 실제 구글 로그인 인증 핸들러 (Firebase signInWithPopup)
+  // 실제 구글 로그인 인증 핸들러 (Firebase signInWithPopup + Fallback)
   const handleGoogleAuth = (targetBtn, forcePage) => {
+    // 1. file:// 프로토콜 환경 감지
+    if (window.location.protocol === 'file:') {
+      console.warn('file:// 프로토콜 환경에서는 Firebase 구글 팝업 로그인이 제한됩니다.');
+      if (confirm('Google 실시간 로그인은 http://localhost 환경(웹서버)에서 작동합니다.\n\n테스트용 Google 계정으로 로그인하시겠습니까?')) {
+        login('Google 테스트 사용자', 'img/Profile Avatar.jpg', forcePage || 'page-home');
+      }
+      return;
+    }
+
     if (!firebaseAuth || !googleAuthProvider) {
       showToast('Firebase SDK 로드 실패! 인터넷 연결을 확인해주세요.');
+      if (confirm('Firebase SDK를 로드할 수 없습니다.\n테스트용 Google 계정으로 로그인하시겠습니까?')) {
+        login('Google 테스트 사용자', 'img/Profile Avatar.jpg', forcePage || 'page-home');
+      }
       return;
     }
 
@@ -1709,12 +1728,33 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .catch((error) => {
         console.error('Google Auth Error:', error);
+
+        let errorMsg = `구글 로그인 실패: ${error.message || '인증 오류'}`;
+        let shouldOfferFallback = false;
+
         if (error.code === 'auth/popup-closed-by-user' || error.code === 'auth/cancelled-popup-request') {
           showToast('구글 로그인이 취소되었습니다.');
+          return;
         } else if (error.code === 'auth/unauthorized-domain') {
-          showToast('승인되지 않은 도메인입니다. Firebase 콘솔 설정 필요');
+          errorMsg = '승인되지 않은 도메인입니다. Firebase 콘솔 설정 필요';
+          shouldOfferFallback = true;
+        } else if (error.code === 'auth/operation-not-supported-in-this-environment') {
+          errorMsg = '현재 환경(file://)에서는 구글 로그인 팝업이 지원되지 않습니다. HTTP 서버(localhost)에서 시작해주세요.';
+          shouldOfferFallback = true;
+        } else if (error.code === 'auth/popup-blocked') {
+          errorMsg = '브라우저 팝업이 차단되었습니다. 팝업 허용 후 다시 시도해주세요.';
         } else {
-          showToast(`구글 로그인 실패: ${error.message || '인증 오류'}`);
+          shouldOfferFallback = true;
+        }
+
+        showToast(errorMsg);
+
+        if (shouldOfferFallback) {
+          setTimeout(() => {
+            if (confirm(`${errorMsg}\n\n테스트용 Google 계정으로 로그인하시겠습니까?`)) {
+              login('Google 테스트 사용자', 'img/Profile Avatar.jpg', forcePage || 'page-home');
+            }
+          }, 300);
         }
       })
       .finally(() => {
