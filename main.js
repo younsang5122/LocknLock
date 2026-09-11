@@ -381,7 +381,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==============================
   // 장바구니 및 결제 (메모리 전용 상태)
   // ==============================
-  const TOSS_CLIENT_KEY = 'test_ck_ZLKGPx4M3M4mWowK1x0w8BaWypv1';
+  const TOSS_CLIENT_KEY = (typeof window !== 'undefined' && window.env && window.env.VITE_TOSS_CLIENT_KEY) || '';
   let cart = []; // { id, name, image, price, qty }
   let currentCheckoutItems = [];
   let currentCheckoutTotal = 46400;
@@ -1567,13 +1567,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==============================
   // Firebase Auth 설정 & 연동
   // ==============================
+  const env = (typeof window !== 'undefined' && window.env) || {};
   const firebaseConfig = {
-    apiKey: "AIzaSyBRs87dL43yttlJjqfu-PZG3NFKQROPYV8",
-    authDomain: "locknlock-e936e.firebaseapp.com",
-    projectId: "locknlock-e936e",
-    storageBucket: "locknlock-e936e.firebasestorage.app",
-    messagingSenderId: "639512598024",
-    appId: "1:639512598024:web:0cff067ebf6e69e38223bd"
+    apiKey: env.VITE_FIREBASE_API_KEY || "",
+    authDomain: env.VITE_FIREBASE_AUTH_DOMAIN || "",
+    projectId: env.VITE_FIREBASE_PROJECT_ID || "",
+    storageBucket: env.VITE_FIREBASE_STORAGE_BUCKET || "",
+    messagingSenderId: env.VITE_FIREBASE_MESSAGING_SENDER_ID || "",
+    appId: env.VITE_FIREBASE_APP_ID || ""
   };
 
   let firebaseAuth = null;
