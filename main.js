@@ -381,7 +381,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==============================
   // 장바구니 및 결제 (메모리 전용 상태)
   // ==============================
-  const TOSS_CLIENT_KEY = (typeof window !== 'undefined' && window.env && window.env.VITE_TOSS_CLIENT_KEY) || '';
+  const TOSS_CLIENT_KEY = (typeof window !== 'undefined' && window.env && window.env.VITE_TOSS_CLIENT_KEY) || 'test_ck_docs_Ovk5rk1EwkEbP0W43n07xlzm';
   let cart = []; // { id, name, image, price, qty }
   let currentCheckoutItems = [];
   let currentCheckoutTotal = 46400;
