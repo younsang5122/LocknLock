@@ -330,7 +330,8 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // 로그인이 필요한 페이지 (비로그인 상태에서 접근 시 안내 팝업 후 로그인 페이지로 이동)
-  const LOGIN_REQUIRED_PAGES = ['page-wish', 'page-mypage', 'page-cart'];
+  // page-cart와 page-checkout은 비로그인 상태에서도 접근 가능하도록 제외
+  const LOGIN_REQUIRED_PAGES = ['page-wish', 'page-mypage'];
 
   navTriggers.forEach((trigger) => {
     trigger.addEventListener('click', (e) => {
