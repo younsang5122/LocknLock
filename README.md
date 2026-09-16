@@ -43,8 +43,10 @@ LocknLock/
 ├── index.html      # 전체 페이지(홈/목록/상세/장바구니/결제/마이페이지 등)를 한 파일에 구성한 SPA
 ├── style.css        # 전역 스타일, Split-Screen 반응형 레이아웃, 컴포넌트별 스타일
 ├── main.js          # 페이지 라우팅(goToPage), 장바구니·찜·최근본상품 상태관리, Firebase Auth, 토스페이먼츠 연동
-├── README.md         # 프로젝트 개요 문서
-└── img/              # 상품 및 브랜드 비주얼 이미지 자산
+├── env.js           # 로컬 환경 변수 (Firebase Key, Toss Client Key)
+├── .env             # 환경 변수 설정 파일
+├── README.md        # 통합 프로젝트 개요 문서
+└── img/             # 상품 및 브랜드 비주얼 이미지 자산
 ```
 빌드 도구나 프레임워크 없이 Vanilla HTML/CSS/JS로만 구성했고, 모든 페이지 전환은 `.page-section`을 보였다 숨겼다 하는 방식(진짜 SPA 라우팅이 아닌 단일 문서 내 화면 전환)으로 구현했습니다.
 
